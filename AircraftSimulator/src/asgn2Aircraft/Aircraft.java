@@ -89,9 +89,16 @@ public abstract class Aircraft {
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"C","N");
-		if(this.seats.contains(p)){
-			this.seats.remove(p);
-		}
+		this.seats.remove(p);
+		if(isEconomy(p)){
+			this.numEconomy--;
+		}else if(isPremium(p)){
+			this.numPremium--;
+		}else if(isBusiness(p)){
+			this.numBusiness--;
+		}else if(isFirst(p)){
+			this.numFirst--;
+		}	
 	}
 
 	/**
@@ -107,11 +114,53 @@ public abstract class Aircraft {
 	public void confirmBooking(Passenger p,int confirmationTime) throws AircraftException, PassengerException { 
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
-		if(this.seatsAvailable(p)){
-			this.seats.add(p);
+		this.seats.add(p);
+		if(isEconomy(p)){
+			this.numEconomy++;
+		}else if(isPremium(p)){
+			this.numPremium++;
+		}else if(isBusiness(p)){
+			this.numBusiness++;
+		}else if(isFirst(p)){
+			this.numFirst++;
 		}	
 	}
 	
+	private boolean isEconomy(Passenger p){
+		
+		if(p.getPassID().contains("Y")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private boolean isPremium(Passenger p){
+		
+		if(p.getPassID().contains("P")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private boolean isBusiness(Passenger p){
+	
+		if(p.getPassID().contains("J")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private boolean isFirst(Passenger p){
+	
+		if(p.getPassID().contains("F")){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	/**
 	 * State dump intended for use in logging the final state of the aircraft. (Supplied) 
 	 * 
@@ -360,6 +409,9 @@ public abstract class Aircraft {
 				spaces--;
 			}
 			i++;
+			if(i > newSeats.size()){
+				i = 0;
+			}
 		}
 		return newSeats;
 	}
