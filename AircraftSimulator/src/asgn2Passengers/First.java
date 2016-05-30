@@ -30,7 +30,7 @@ public class First extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected First() {
-		super();
+		//super();
 		this.passID = "F:";
 	}
 

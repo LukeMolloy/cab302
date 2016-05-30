@@ -31,7 +31,7 @@ public class Business extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected Business() {
-		super();
+		//super();
 		this.passID = "J:";
 	}
 	
@@ -45,7 +45,7 @@ public class Business extends Passenger {
 		First newPassenger = new First();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "J:";
+		//this.passID = "J:";
 		return newPassenger;
 		
 	}
