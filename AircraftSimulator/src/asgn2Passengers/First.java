@@ -20,9 +20,12 @@ public class First extends Passenger {
 	 * @see asgnPassengers.Passenger#Passenger(int,int)
 	 */
 	public First(int bookingTime, int departureTime) throws PassengerException {
-		this.bookingTime = bookingTime;
-		this.departureTime = departureTime;
+		super(bookingTime, departureTime);
 		this.newState = true;
+		this.confirmed = false;
+		this.flown = false;
+		this.refused = false;
+		this.inQueue = false;
 		this.passID = "F:" + this.passID;
 	}
 	
@@ -30,8 +33,8 @@ public class First extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected First() {
-		//super();
-		this.passID = "F:";
+		super();
+		//this.passID = "F";
 	}
 
 	@Override
@@ -42,9 +45,11 @@ public class First extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-		First newPassenger = new First();
+
+		Passenger newPassenger = new First();
 		//Passenger newPassenger = null;
-		newPassenger.copyPassengerState(newPassenger);
+		newPassenger.copyPassengerState(this);
+		//this.passID = newPassenger.passID + "(U)" + this.passID;
 		//this.passID = "F(U)J:";
 		
 		return newPassenger;
