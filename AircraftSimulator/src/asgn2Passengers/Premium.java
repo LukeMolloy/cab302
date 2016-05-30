@@ -20,7 +20,8 @@ public class Premium extends Passenger {
 	 * @see asgnPassengers.Passenger#Passenger(int,int)
 	 */
 	public Premium(int bookingTime,int departureTime) throws PassengerException {
-		//Stuff here
+		bookingTime = this.bookingTime;
+		departureTime = this.departureTime;
 		this.passID = "P:" + this.passID;
 	}
 	
@@ -28,12 +29,16 @@ public class Premium extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected Premium() {
-		
+		super();
 	}
 
 	@Override
 	public Passenger upgrade() {
-		
+		Business newPassenger = new Business();
+		//Passenger newPassenger = null;
+		copyPassengerState(newPassenger);
+		this.passID = "P:" + "J:";
+		return newPassenger;
 	}
 	
 	@Override

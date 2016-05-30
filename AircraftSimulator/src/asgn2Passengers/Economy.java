@@ -21,6 +21,8 @@ public class Economy extends Passenger {
 	 */
 	public Economy(int bookingTime,int departureTime) throws PassengerException {
 		//Stuff here
+		bookingTime = this.bookingTime;
+		departureTime = this.departureTime;
 		this.passID = "Y:" + this.passID;
 	}
 	
@@ -31,6 +33,9 @@ public class Economy extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-
+		Premium newPassenger = new Premium();
+		copyPassengerState(newPassenger);
+		this.passID = "Y:" + "P:";
+		return newPassenger;
 	}
 }

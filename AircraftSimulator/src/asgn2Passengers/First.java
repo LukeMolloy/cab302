@@ -20,7 +20,8 @@ public class First extends Passenger {
 	 * @see asgnPassengers.Passenger#Passenger(int,int)
 	 */
 	public First(int bookingTime, int departureTime) throws PassengerException {
-		//Call here 
+		bookingTime = this.bookingTime;
+		departureTime = this.departureTime;
 		this.passID = "F:" + this.passID;
 	}
 	
@@ -39,6 +40,10 @@ public class First extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-		//Think about it :) 
+		First newPassenger = new First();
+		//Passenger newPassenger = null;
+		copyPassengerState(newPassenger);
+		this.passID = "F:" + "F:";
+		return newPassenger;
 	}
 }
