@@ -426,7 +426,7 @@ public abstract class Passenger {
 	protected void copyPassengerState(Passenger p) {
 		this.index = p.index;
 		this.newState = p.newState;
-		this.passID = p.passID;
+		this.passID = this.passID + "U" + p.passID;
 		this.confirmed = p.confirmed;
 		this.inQueue = p.inQueue;
 		this.flown = p.flown;

@@ -36,7 +36,7 @@ public class Economy extends Passenger {
 	public Passenger upgrade() {
 		Premium newPassenger = new Premium();
 		copyPassengerState(newPassenger);
-		this.passID = "Y(U)Y:";
+		//this.passID = "Y:";
 		return newPassenger;
 	}
 }

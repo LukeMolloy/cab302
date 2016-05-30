@@ -31,6 +31,7 @@ public class First extends Passenger {
 	 */
 	protected First() {
 		super();
+		this.passID = "F:";
 	}
 
 	@Override
@@ -44,7 +45,8 @@ public class First extends Passenger {
 		First newPassenger = new First();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "F(U)J:";
+		//this.passID = "F(U)J:";
+		
 		return newPassenger;
 	}
 }

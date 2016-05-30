@@ -31,6 +31,7 @@ public class Premium extends Passenger {
 	 */
 	protected Premium() {
 		super();
+		this.passID = "P:";
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class Premium extends Passenger {
 		Business newPassenger = new Business();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "P(U)Y:";
+		//this.passID = "P";
 		return newPassenger;
 	}
 	
