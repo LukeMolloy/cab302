@@ -23,6 +23,7 @@ public class Business extends Passenger {
 		//Stuff here
 		bookingTime = this.bookingTime;
 		departureTime = this.departureTime;
+		this.newState = true;
 		this.passID = "J:" + this.passID;
 	}
 	
@@ -31,7 +32,6 @@ public class Business extends Passenger {
 	 */
 	protected Business() {
 		super();
-		//this.copyPassengerState(null);
 	}
 	
 	@Override

@@ -86,7 +86,7 @@ public abstract class Passenger {
 	 * Simple no-argument constructor to support {@link #upgrade()}
 	 */
 	protected Passenger() {
-		
+		super();
 	}
 	
 	/**
@@ -227,7 +227,13 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-			return this.confirmed = true;
+			//return this.confirmed = true;
+			if (this.confirmed = true){
+				return true;
+			}
+			else {
+				return false;
+			}
 	}
 		
 	/**
@@ -236,7 +242,13 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
-		return this.flown = true;
+		//return this.flown = true;
+		if (this.flown = true){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
@@ -245,7 +257,13 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
-		return this.newState = true;
+		//return this.newState = true;
+		if (this.newState = true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -254,7 +272,13 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
-		return this.inQueue = true;
+		//return this.inQueue = true;
+		if (this.inQueue = true){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
@@ -263,7 +287,13 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
-		return this.refused = true;
+		//return this.refused = true;
+		if (this.refused = true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**

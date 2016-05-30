@@ -23,6 +23,7 @@ public class Economy extends Passenger {
 		//Stuff here
 		bookingTime = this.bookingTime;
 		departureTime = this.departureTime;
+		this.newState = true;
 		this.passID = "Y:" + this.passID;
 	}
 	

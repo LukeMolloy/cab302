@@ -22,6 +22,7 @@ public class Premium extends Passenger {
 	public Premium(int bookingTime,int departureTime) throws PassengerException {
 		bookingTime = this.bookingTime;
 		departureTime = this.departureTime;
+		this.newState = true;
 		this.passID = "P:" + this.passID;
 	}
 	
