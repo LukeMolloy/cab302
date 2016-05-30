@@ -73,8 +73,8 @@ public abstract class Passenger {
 	 * OR (departureTime < bookingTime) 
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
-		bookingTime = this.bookingTime;
-		departureTime = this.departureTime;
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
 		this.newState = true;
 		//Stuff here 
 		this.passID = "" + Passenger.index; 
@@ -109,7 +109,7 @@ public abstract class Passenger {
 	public void cancelSeat(int cancellationTime) throws PassengerException {
 		if (this.isConfirmed()) {
 			this.isNew();
-			cancellationTime = this.bookingTime;
+			cancellationTime = getBookingTime();
 		}
 		this.index--;
 	}
@@ -140,10 +140,10 @@ public abstract class Passenger {
 		if (this.isQueued()) {
 			confirmedCount++;
 			this.isConfirmed();
-			confirmationTime = this.getExitQueueTime();
+			this.confirmationTime = getExitQueueTime();
 		}
-		confirmationTime = this.getConfirmationTime();
-		departureTime = this.getDepartureTime();
+		this.confirmationTime = getConfirmationTime();
+		this.departureTime = getDepartureTime();
 		
 	}
 
@@ -162,7 +162,7 @@ public abstract class Passenger {
 	public void flyPassenger(int departureTime) throws PassengerException {
 		if (isConfirmed()) {
 			this.isFlown();
-			departureTime = this.getDepartureTime();
+			this.departureTime = departureTime;
 		}
 	}
 

@@ -20,8 +20,8 @@ public class Premium extends Passenger {
 	 * @see asgnPassengers.Passenger#Passenger(int,int)
 	 */
 	public Premium(int bookingTime,int departureTime) throws PassengerException {
-		bookingTime = this.bookingTime;
-		departureTime = this.departureTime;
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
 		this.newState = true;
 		this.passID = "P:" + this.passID;
 	}
