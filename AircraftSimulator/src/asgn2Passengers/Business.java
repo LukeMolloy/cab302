@@ -37,7 +37,7 @@ public class Business extends Passenger {
 	 */
 	protected Business() {
 		super();
-		//this.passID = "J";
+		this.passID = "J(U)" + this.passID;
 	}
 	
 	@Override
@@ -49,6 +49,7 @@ public class Business extends Passenger {
 	public Passenger upgrade() {
 		Passenger newPassenger = new First();
 		newPassenger.copyPassengerState(this);
+		this.passID = "J:";
 
 		return newPassenger;
 		//Passenger newPassenger = null;
