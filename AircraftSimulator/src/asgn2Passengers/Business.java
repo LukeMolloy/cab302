@@ -44,7 +44,7 @@ public class Business extends Passenger {
 		First newPassenger = new First();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "J:" + "F:";
+		this.passID = "J(U)P:";
 		return newPassenger;
 		
 	}

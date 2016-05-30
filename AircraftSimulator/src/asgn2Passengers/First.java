@@ -44,7 +44,7 @@ public class First extends Passenger {
 		First newPassenger = new First();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "F:" + "F:";
+		this.passID = "F(U)J:";
 		return newPassenger;
 	}
 }

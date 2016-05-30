@@ -38,7 +38,7 @@ public class Premium extends Passenger {
 		Business newPassenger = new Business();
 		//Passenger newPassenger = null;
 		copyPassengerState(newPassenger);
-		this.passID = "P:" + "J:";
+		this.passID = "P(U)Y:";
 		return newPassenger;
 	}
 	
