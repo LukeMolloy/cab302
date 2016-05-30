@@ -44,7 +44,7 @@ public class First extends Passenger {
 	public Passenger upgrade() {
 		First newPassenger = new First();
 		//Passenger newPassenger = null;
-		copyPassengerState(newPassenger);
+		newPassenger.copyPassengerState(newPassenger);
 		//this.passID = "F(U)J:";
 		
 		return newPassenger;
