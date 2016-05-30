@@ -72,6 +72,7 @@ public abstract class Aircraft {
 		this.businessCapacity = business;
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
+		this.seats = new ArrayList<Passenger>();
 		this.status = "";
 	}
 	
@@ -88,7 +89,9 @@ public abstract class Aircraft {
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"C","N");
-		//Stuff here
+		if(this.seats.contains(p)){
+			this.seats.remove(p);
+		}
 	}
 
 	/**
@@ -104,7 +107,9 @@ public abstract class Aircraft {
 	public void confirmBooking(Passenger p,int confirmationTime) throws AircraftException, PassengerException { 
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
-		//Stuff here
+		if(this.seatsAvailable(p)){
+			this.seats.add(p);
+		}	
 	}
 	
 	/**
@@ -232,7 +237,7 @@ public abstract class Aircraft {
 	 * @return <code>List<Passenger></code> object containing the passengers.  
 	 */
 	public List<Passenger> getPassengers() {
-		List<Passenger> newList = new ArrayList<Passenger>(seats);
+		List<Passenger> newList = new ArrayList<Passenger>(this.seats);
 		return newList;
 	}
 	
@@ -341,10 +346,22 @@ public abstract class Aircraft {
 		newSeats = movePassengers(businessVac, "P", newSeats);
 		newSeats = movePassengers(primeVac, "Y", newSeats);
 			
+		this.seats = newSeats;
 	}
 	
 	private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
-		
+		int i = 0;
+		while(spaces != 0){
+			Passenger p = newSeats.get(i);
+			if(p.getPassID().contains(flightClass)){
+				p.upgrade();
+				newSeats.remove(p);
+				newSeats.add(i, p);
+				spaces--;
+			}
+			i++;
+		}
+		return newSeats;
 	}
 
 	/**
