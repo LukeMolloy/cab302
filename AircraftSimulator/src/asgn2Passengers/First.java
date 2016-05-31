@@ -33,8 +33,8 @@ public class First extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected First() {
-		super();
-		this.passID = "F(U)" + this.passID;
+		//super();
+		//this.passID = "F(U)" + this.passID;
 	}
 
 	@Override
@@ -49,6 +49,8 @@ public class First extends Passenger {
 		Passenger newPassenger = new First();
 		//Passenger newPassenger = null;
 		newPassenger.copyPassengerState(this);
+		
+		
 		//this.passID = newPassenger.passID + "(U)" + this.passID;
 		//this.passID = "F(U)J:";
 		
