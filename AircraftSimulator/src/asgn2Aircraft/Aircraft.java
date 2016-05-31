@@ -90,6 +90,7 @@ public abstract class Aircraft {
 		this.businessCapacity = business;
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
+		this.capacity = first + business + premium +  economy;
 		this.seats = new ArrayList<Passenger>();
 		this.status = "";
 	}
@@ -114,6 +115,7 @@ public abstract class Aircraft {
 		if(!this.seats.contains(p)){
 			throw new AircraftException("Passenger is not recorded in aircraft seating");
 		}
+		
 		this.status += Log.setPassengerMsg(p,"C","N");
 		this.seats.remove(p);
 		p.cancelSeat(cancellationTime);
@@ -142,11 +144,8 @@ public abstract class Aircraft {
 		if(confirmationTime < 0 || this.departureTime < 0){
 			throw new PassengerException("Confirmation Time or departure time is invalid");
 		}
-		if(!p.isNew()){
-			throw new PassengerException("passenger new is false");
-		}
-		if(!p.isQueued()){
-			throw new PassengerException("passenger queued is false");
+		if(!p.isNew() && !p.isQueued()){
+			throw new PassengerException("passenger new and queued are false");
 		}
 		if(!this.seatsAvailable(p)){
 			throw new AircraftException("No seats available in passenger seat class");
@@ -433,20 +432,33 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() { 
-		int a = 0;
-		while(this.numFirst < this.firstCapacity){
-			Passenger p = this.seats.get(a);
-			if(p.getPassID().contains("J")){
-				p = p.upgrade();
-				this.numFirst++;
+
+		for (Passenger p : seats){
+			if(this.numFirst < this.firstCapacity){
+				if(p.getPassID().contains("J")){
+					p = p.upgrade();
+					this.numFirst++;
+					this.numBusiness--;
+				}
 			}
-			a++;
 		}
-		if(this.numBusiness < this.businessCapacity){
-			
+		for (Passenger p : seats){
+			if(this.numBusiness < this.businessCapacity){
+				if(p.getPassID().contains("J")){
+					p = p.upgrade();
+					this.numBusiness++;
+					this.numPremium--;
+				}
+			}
 		}
-		if(this.numPremium < this.premiumCapacity){
-			
+		for (Passenger p : seats){
+			if(this.numPremium < this.premiumCapacity){
+				if(p.getPassID().contains("J")){
+					p = p.upgrade();
+					this.numPremium++;
+					this.numEconomy--;
+				}
+			}
 		}
 	}
 	
