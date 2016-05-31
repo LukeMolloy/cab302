@@ -116,6 +116,7 @@ public abstract class Aircraft {
 		}
 		this.status += Log.setPassengerMsg(p,"C","N");
 		this.seats.remove(p);
+		p.cancelSeat(cancellationTime);
 		if(isEconomy(p)){
 			this.numEconomy--;
 		}else if(isPremium(p)){
@@ -153,6 +154,7 @@ public abstract class Aircraft {
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
 		this.seats.add(p);
+		p.confirmSeat(confirmationTime, this.departureTime);
 		if(isEconomy(p)){
 			this.numEconomy++;
 		}else if(isPremium(p)){
