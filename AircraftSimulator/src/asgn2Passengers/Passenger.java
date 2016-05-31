@@ -94,6 +94,7 @@ public abstract class Passenger {
 		this.inQueue = false;
 		this.passID = "" + Passenger.index; 
 		Passenger.index++; 	
+		//cancel
 	}
 	
 	/**
@@ -155,7 +156,7 @@ public abstract class Passenger {
 			this.refused = false;
 			this.inQueue = false;
 			
-			cancellationTime = this.getBookingTime();
+			cancellationTime = this.bookingTime;
 		
 	}
 
