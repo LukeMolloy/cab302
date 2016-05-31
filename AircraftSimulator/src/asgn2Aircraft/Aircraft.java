@@ -167,7 +167,7 @@ public abstract class Aircraft {
 	
 	private boolean isEconomy(Passenger p){
 		
-		if(p.getPassID().contains("Y")){
+		if(p instanceof Economy){
 			return true;
 		}else{
 			return false;
@@ -176,7 +176,7 @@ public abstract class Aircraft {
 	
 	private boolean isPremium(Passenger p){
 		
-		if(p.getPassID().contains("P")){
+		if(p instanceof Premium){
 			return true;
 		}else{
 			return false;
@@ -185,7 +185,7 @@ public abstract class Aircraft {
 	
 	private boolean isBusiness(Passenger p){
 	
-		if(p.getPassID().contains("J")){
+		if(p instanceof Business){
 			return true;
 		}else{
 			return false;
@@ -194,7 +194,7 @@ public abstract class Aircraft {
 	
 	private boolean isFirst(Passenger p){
 	
-		if(p.getPassID().contains("F")){
+		if(p instanceof First){
 			return true;
 		}else{
 			return false;
@@ -388,15 +388,15 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {		
-		String passengerID = p.getPassID();
+		
 		int seatsAvailable = 0;
-		if(passengerID.contains("Y")){
+		if(isEconomy(p)){
 			seatsAvailable = this.economyCapacity - this.numEconomy;
-		}else if(passengerID.contains("P")){
+		}else if(isPremium(p)){
 			seatsAvailable = this.premiumCapacity - this.numPremium;
-		}else if(passengerID.contains("J")){
+		}else if(isBusiness(p)){
 			seatsAvailable = this.businessCapacity - this.numBusiness;
-		}else if(passengerID.contains("F")){
+		}else if(isFirst(p)){
 			seatsAvailable = this.firstCapacity - this.numFirst;
 		}
 		
@@ -462,24 +462,6 @@ public abstract class Aircraft {
 		}
 	}
 	
-	private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
-		int i = 0;
-		while(spaces != 0){
-			Passenger p = newSeats.get(i);
-			if(p.getPassID().contains(flightClass)){
-				p.upgrade();
-				newSeats.remove(p);
-				newSeats.add(i, p);
-				spaces--;
-			}
-			i++;
-			if(i > newSeats.size()){
-				i = 0;
-			}
-		}
-		return newSeats;
-	}
-
 	/**
 	 * Simple String method for the Aircraft ID 
 	 * 
