@@ -91,7 +91,6 @@ public class GUISimulator extends JFrame implements Runnable {
 	
 	private JButton createButton(String str) {
 		JButton jb = new JButton(str); 
-		jb.addActionListener(this);
 		return jb; 
 	}
 	
@@ -147,23 +146,6 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		//Get event source 
-		Object src=e.getSource(); 
-		      
-		//Consider the alternatives - not all active at once. 
-		if (src== btnLoad) {
-			JButton btn = ((JButton) src);
-		} else if (src==btnUnload) {
-			JButton btn = ((JButton) src);
-		} else if (src==btnSwitch) {
-			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
-		} else if (src==btnFind) {
-			JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
-		
-		
-	}}
 	
 	/**
 	 * @param args
