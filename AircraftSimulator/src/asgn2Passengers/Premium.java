@@ -34,7 +34,7 @@ public class Premium extends Passenger {
 	 */
 	protected Premium() {
 		super();
-		//this.passID = "P";
+		this.passID = "P(U)" + this.passID;
 	}
 
 	@Override
@@ -44,6 +44,7 @@ public class Premium extends Passenger {
 		//Premium newPremium = new Premium();
 		//Passenger newPassenger = null;
 		newPassenger.copyPassengerState(this);
+		this.passID = "J:";
 		//this.passID = newPassenger.passID + "(U)" + this.passID;
 		//newPassenger.copyPassengerState(newPassenger);
 		//this.passID = "P";
