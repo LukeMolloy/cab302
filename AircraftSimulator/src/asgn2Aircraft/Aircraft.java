@@ -65,9 +65,25 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
-		if(flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0){
-			throw new AircraftException("Values are off");
+		if(flightCode == null ){
+			throw new AircraftException("Flight code is null");
 		}
+		if(departureTime <= 0){
+			throw new AircraftException("Departure time is negative");
+		}
+		if(first < 0){
+			throw new AircraftException("First capacity is nagative");
+		}
+		if(business < 0){
+			throw new AircraftException("Business capacity is nagative");
+		}
+		if(premium < 0){
+			throw new AircraftException("Premium capacity is nagative");
+		}
+		if(economy < 0){
+			throw new AircraftException("Economy capacity is nagative");
+		}
+
 		this.flightCode = flightCode;
 		this.departureTime = departureTime;
 		this.firstCapacity = first;
@@ -89,8 +105,11 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
-		if(p.isConfirmed() == false || cancellationTime < 0){
-			throw new PassengerException("Passenger not confirmed or cancelation time is invalid");
+		if(p.isConfirmed() == false){
+			throw new PassengerException("Passenger Confirmed is already false");
+		}
+		if(cancellationTime < 0){
+			throw new PassengerException("Passenger Confirmed is already false");
 		}
 		if(!this.seats.contains(p)){
 			throw new AircraftException("Passenger is not recorded in aircraft seating");
@@ -122,11 +141,14 @@ public abstract class Aircraft {
 		if(confirmationTime < 0 || this.departureTime < 0){
 			throw new PassengerException("Confirmation Time or departure time is invalid");
 		}
-		if(p.isConfirmed() || p.isFlown() || p.isQueued()){
-			throw new PassengerException("Passenger is in incorect state");
+		if(!p.isNew()){
+			throw new PassengerException("passenger new is false");
 		}
-		if(!this.seats.contains(p)){
-			throw new AircraftException("Passenger is not recorded in aircraft seating");
+		if(!p.isQueued()){
+			throw new PassengerException("passenger queued is false");
+		}
+		if(!this.seatsAvailable(p)){
+			throw new AircraftException("No seats available in passenger seat class");
 		}
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
