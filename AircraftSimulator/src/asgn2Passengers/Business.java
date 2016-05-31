@@ -49,11 +49,7 @@ public class Business extends Passenger {
 	public Passenger upgrade() {
 		Passenger newPassenger = new First();
 		newPassenger.copyPassengerState(this);
-		this.passID = "F(U)" + this.passID;
-		return newPassenger;
-		//Passenger newPassenger = null;
-		//this.passID = "J:";
-		//newPassenger.copyPassengerState(newPassenger);
-		//this.passID = "J:";		
+		newPassenger.passID = "F(U)" + this.passID;
+		return newPassenger;	
 	}
 }

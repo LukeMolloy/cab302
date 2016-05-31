@@ -33,21 +33,14 @@ public class Premium extends Passenger {
 	 * Simple constructor to support {@link asgn2Passengers.Passenger#upgrade()} in other subclasses
 	 */
 	protected Premium() {
-		super();
-		this.passID = "P(U)" + this.passID;
+
 	}
 
 	@Override
 	public Passenger upgrade() {
-		//this.passID = "P";
 		Passenger newPassenger = new Business();
-		//Premium newPremium = new Premium();
-		//Passenger newPassenger = null;
 		newPassenger.copyPassengerState(this);
-		this.passID = "J:";
-		//this.passID = newPassenger.passID + "(U)" + this.passID;
-		//newPassenger.copyPassengerState(newPassenger);
-		//this.passID = "P";
+		newPassenger.passID = "J(U)" + this.passID;
 		return newPassenger;
 	}
 	

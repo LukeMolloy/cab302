@@ -101,7 +101,6 @@ public abstract class Passenger {
 	 * Simple no-argument constructor to support {@link #upgrade()}
 	 */
 	protected Passenger() {
-		this.passID = "" + Passenger.index; 
 		
 		
 	}
