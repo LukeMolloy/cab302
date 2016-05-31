@@ -113,9 +113,10 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
 	 */
 	public void cancelSeat(int cancellationTime) throws PassengerException {
-		if (this.confirmed = true) {
+		if (this.isConfirmed()) {
 			this.newState = true;
-			cancellationTime = getBookingTime();
+			this.confirmed = false;
+			cancellationTime = this.getBookingTime();
 		}
 	}
 
@@ -136,18 +137,23 @@ public abstract class Passenger {
 	 * 		   OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 	 */
 	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {		
-		if (this.newState = true) {
+		if (this.isNew()) {
 			confirmedCount++;
-			this.confirmed = true;
+			this.isConfirmed();
+			this.newState = false;
+			this.confirmationTime = getConfirmationTime();
+			this.departureTime = getDepartureTime();
 		}
 		
-		if (this.inQueue = true) {
+		if (this.isQueued()) {
 			confirmedCount++;
-			this.confirmed = true;
+			this.isConfirmed();
+			this.departureTime = getDepartureTime();
+			this.inQueue = false;
 			this.confirmationTime = getExitQueueTime();
 		}
-		this.confirmationTime = getConfirmationTime();
-		this.departureTime = getDepartureTime();
+
+
 		
 	}
 
@@ -164,9 +170,10 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (departureTime <= 0)
 	 */
 	public void flyPassenger(int departureTime) throws PassengerException {
-		if (this.confirmed = true) {
-			this.flown = true;
-			this.departureTime = departureTime;
+		if (this.isConfirmed()) {
+			this.isFlown();
+			this.confirmed = false;
+			this.departureTime = getDepartureTime();
 		}
 	}
 
@@ -231,7 +238,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-			//return this.confirmed = true;
 			if (this.confirmed = true){
 				return true;
 			}
@@ -246,7 +252,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
-		//return this.flown = true;
 		if (this.flown = true){
 			return true;
 		}
@@ -261,7 +266,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
-		//return this.newState = true;
 		if (this.newState = true) {
 			return true;
 		}
@@ -276,7 +280,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
-		//return this.inQueue = true;
 		if (this.inQueue = true){
 			return true;
 		}
@@ -291,7 +294,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
-		//return this.refused = true;
 		if (this.refused = true) {
 			return true;
 		}
@@ -325,9 +327,10 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (queueTime < 0) OR (departureTime < queueTime)
 	 */
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
-		if (this.newState = true) {
+		if (this.isNew()) {
 			queuedCount++;
-			this.inQueue = true;
+			this.isQueued();
+			this.newState = false;
 			queueTime = this.getEnterQueueTime();
 			departureTime = this.getDepartureTime();
 		}
@@ -348,12 +351,14 @@ public abstract class Passenger {
 	 * 			OR (refusalTime < 0) OR (refusalTime < bookingTime)
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
-		if (this.newState = true) {
-			this.refused = true;
+		if (this.isNew()) {
+			this.isRefused();
+			this.newState = false;
 		}
 		
-		if (this.inQueue = true) {
-			this.refused = true;
+		if (this.isQueued()) {
+			this.isRefused();
+			this.newState = false;
 			refusalTime = this.getExitQueueTime();
 		}
 	}
