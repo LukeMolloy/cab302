@@ -6,24 +6,20 @@
  */
 package asgn2Simulators;
 
-import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import asgn2Simulators.GUISimulator;
-
 
 /**
  * @author hogan
@@ -32,8 +28,8 @@ import asgn2Simulators.GUISimulator;
 @SuppressWarnings("serial")
 public class GUISimulator extends JFrame implements Runnable {
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 300;
-	public static final int HEIGHT = 200;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 500;
 	
 
 	private JPanel pnlOne;
@@ -41,10 +37,9 @@ public class GUISimulator extends JFrame implements Runnable {
 	private JPanel pnlFour;
 	private JPanel pnlFive;
 	
-	private JButton btnLoad;
-	private JButton btnUnload;
-	private JButton btnFind;
-	private JButton btnSwitch;
+	private JButton btnRunSim;
+	private JButton btnShowChart;
+
 	private JPanel pnlBtn;
 	
 	/**
@@ -66,10 +61,9 @@ public class GUISimulator extends JFrame implements Runnable {
 	    pnlFour = createPanel(Color.LIGHT_GRAY);
 	    pnlFive = createPanel(Color.LIGHT_GRAY);
 	    
-	    btnLoad = createButton("Load");
-	    btnUnload = createButton("Unload");
-	    btnFind = createButton("Find");
-	    btnSwitch = createButton("Switch");
+	    btnRunSim = createButton("Run Simulation");
+	    btnShowChart = createButton("Show Chart");
+
 	    
 	    layoutButtonPanel(); 
 	    
@@ -91,7 +85,6 @@ public class GUISimulator extends JFrame implements Runnable {
 	
 	private JButton createButton(String str) {
 		JButton jb = new JButton(str); 
-		jb.addActionListener(this);
 		return jb; 
 	}
 	
@@ -108,10 +101,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	    constraints.weightx = 100;
 	    constraints.weighty = 100;
 	    
-	    addToPanel(pnlBtn, btnLoad,constraints,0,0,2,1); 
-	    addToPanel(pnlBtn, btnUnload,constraints,3,0,2,1); 
-	    addToPanel(pnlBtn, btnFind,constraints,0,2,2,1); 
-	    addToPanel(pnlBtn, btnSwitch,constraints,3,2,2,1); 	
+	    addToPanel(pnlBtn, btnRunSim,constraints,0,0,2,1); 
+	    addToPanel(pnlBtn, btnShowChart,constraints,3,0,2,1); 
 	}
 	
 	/**
@@ -147,24 +138,6 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		//Get event source 
-		Object src=e.getSource(); 
-		      
-		//Consider the alternatives - not all active at once. 
-		if (src== btnLoad) {
-			JButton btn = ((JButton) src);
-		} else if (src==btnUnload) {
-			JButton btn = ((JButton) src);
-		} else if (src==btnSwitch) {
-			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
-		} else if (src==btnFind) {
-			JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
-		
-		
-	}}
-	
 	/**
 	 * @param args
 	 */
@@ -173,5 +146,4 @@ public class GUISimulator extends JFrame implements Runnable {
         SwingUtilities.invokeLater(new GUISimulator("BorderLayout"));
 	}
 
-	
 }
