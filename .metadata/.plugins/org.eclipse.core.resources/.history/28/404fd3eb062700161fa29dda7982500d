@@ -1,0 +1,59 @@
+/**
+ * 
+ * This file is part of the AircraftSimulator Project, written as 
+ * part of the assessment for CAB302, semester 1, 2016. 
+ * 
+ */
+package asgn2Simulators;
+
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+
+/**
+ * @author hogan
+ *
+ */
+@SuppressWarnings("serial")
+public class GUISimulator extends JFrame implements Runnable {
+	private static final long serialVersionUID = -7031008862559936404L;
+	public static final int WIDTH = 300;
+	public static final int HEIGHT = 200;
+
+	/**
+	 * @param arg0
+	 * @throws HeadlessException
+	 */
+	public GUISimulator(String arg0) throws HeadlessException {
+		super(arg0);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	private void createGUI() {
+		setSize(WIDTH, HEIGHT);
+	}
+	
+	
+	
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
+	@Override
+	public void run() {
+		createGUI();
+
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
