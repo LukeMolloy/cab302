@@ -7,8 +7,10 @@
 package asgn2Simulators;
 
 import java.awt.BorderLayout;
+import java.awt.Label;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -16,6 +18,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -36,6 +39,8 @@ public class GUISimulator extends JFrame implements Runnable {
 	private JPanel pnlTwo;
 	private JPanel pnlFour;
 	private JPanel pnlFive;
+	
+	private JLabel simLabel, fareLabel, opLabel;
 	
 	private JButton btnRunSim;
 	private JButton btnShowChart;
@@ -60,6 +65,10 @@ public class GUISimulator extends JFrame implements Runnable {
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
 	    pnlFour = createPanel(Color.LIGHT_GRAY);
 	    pnlFive = createPanel(Color.LIGHT_GRAY);
+	    
+	    simLabel = createLabel("Simulation");
+	    fareLabel = createLabel("Fare Classes");
+	    opLabel = createLabel("Operation");
 	    
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Chart");
@@ -88,6 +97,13 @@ public class GUISimulator extends JFrame implements Runnable {
 		return jb; 
 	}
 	
+	private JLabel createLabel(String str){
+		JLabel jl = new JLabel(str); 
+		jl.setFont(new Font("Courier New", Font.BOLD, 20));
+		return jl;
+	}
+
+	
 	private void layoutButtonPanel() {
 		GridBagLayout layout = new GridBagLayout();
 	    pnlBtn.setLayout(layout);
@@ -100,9 +116,11 @@ public class GUISimulator extends JFrame implements Runnable {
 	    constraints.anchor = GridBagConstraints.CENTER;
 	    constraints.weightx = 100;
 	    constraints.weighty = 100;
-	    
-	    addToPanel(pnlBtn, btnRunSim,constraints,0,0,2,1); 
-	    addToPanel(pnlBtn, btnShowChart,constraints,3,0,2,1); 
+	    addToPanel(pnlBtn, simLabel,constraints,1,0,2,1);
+	    addToPanel(pnlBtn, fareLabel,constraints,3,0,2,1);
+	    addToPanel(pnlBtn, opLabel,constraints,5,0,2,1);
+	    addToPanel(pnlBtn, btnRunSim,constraints,5,1,2,1); 
+	    addToPanel(pnlBtn, btnShowChart,constraints,5,2,2,1); 
 	}
 	
 	/**
@@ -138,10 +156,6 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 5cd91d3f5d6041e78724a2815672ffac0abf9d25
 	/**
 	 * @param args
 	 */
