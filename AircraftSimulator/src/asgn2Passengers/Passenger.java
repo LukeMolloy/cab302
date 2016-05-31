@@ -156,7 +156,7 @@ public abstract class Passenger {
 			this.refused = false;
 			this.inQueue = false;
 			
-			cancellationTime = this.bookingTime;
+			this.bookingTime = cancellationTime;
 		
 	}
 
