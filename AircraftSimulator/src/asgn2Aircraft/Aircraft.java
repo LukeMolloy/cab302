@@ -65,7 +65,9 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
-		
+		if(flightCode == null || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0){
+			throw new AircraftException("Values are off");
+		}
 		this.flightCode = flightCode;
 		this.departureTime = departureTime;
 		this.firstCapacity = first;
@@ -87,7 +89,12 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
-		//Stuff here
+		if(p.isConfirmed() == false || cancellationTime < 0){
+			throw new PassengerException("Passenger not confirmed or cancelation time is invalid");
+		}
+		if(!this.seats.contains(p)){
+			throw new AircraftException("Passenger is not recorded in aircraft seating");
+		}
 		this.status += Log.setPassengerMsg(p,"C","N");
 		this.seats.remove(p);
 		if(isEconomy(p)){
@@ -112,6 +119,15 @@ public abstract class Aircraft {
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
 	public void confirmBooking(Passenger p,int confirmationTime) throws AircraftException, PassengerException { 
+		if(confirmationTime < 0 || this.departureTime < 0){
+			throw new PassengerException("Confirmation Time or departure time is invalid");
+		}
+		if(p.isConfirmed() || p.isFlown() || p.isQueued()){
+			throw new PassengerException("Passenger is in incorect state");
+		}
+		if(!this.seats.contains(p)){
+			throw new AircraftException("Passenger is not recorded in aircraft seating");
+		}
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
 		this.seats.add(p);
@@ -212,10 +228,17 @@ public abstract class Aircraft {
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
 	public void flyPassengers(int departureTime) throws PassengerException { 
+
 		for(int i = 0;i < this.seats.size();){	
+			
 			Passenger p = this.seats.get(i);
+			if(p.isFlown()){
+				throw new PassengerException("Passenger has already flown");
+			}
 			p.flyPassenger(departureTime);
 			i++;
+			if(p.isFlown()){
+			}
 		}
 	}
 	
@@ -266,7 +289,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Confirmed passengers 
 	 */
 	public int getNumPassengers() {
-		int totalPassengers = this.numBusiness + this.numEconomy + this.numFirst + this.numPremium;
+		int totalPassengers = this.seats.size();
 		return totalPassengers;
 	}
 	
@@ -386,20 +409,24 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() { 
-		/*List<Passenger> newSeats = this.getPassengers();
-		int firstVac = this.firstCapacity - this.numFirst;
-		int businessVac = this.businessCapacity - this.numBusiness;
-		int primeVac = this.premiumCapacity - this.numPremium;
+		int a = 0;
+		while(this.numFirst < this.firstCapacity){
+			Passenger p = this.seats.get(a);
+			if(p.getPassID().contains("J")){
+				p = p.upgrade();
+				this.numFirst++;
+			}
+			a++;
+		}
+		if(this.numBusiness < this.businessCapacity){
 			
-		newSeats = movePassengers(firstVac, "J", newSeats);
-		newSeats = movePassengers(businessVac, "P", newSeats);
-		newSeats = movePassengers(primeVac, "Y", newSeats);
+		}
+		if(this.numPremium < this.premiumCapacity){
 			
-		this.seats = newSeats;*/
-		this.seats = this.seats;
+		}
 	}
 	
-	/*private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
+	private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
 		int i = 0;
 		while(spaces != 0){
 			Passenger p = newSeats.get(i);
@@ -415,7 +442,7 @@ public abstract class Aircraft {
 			}
 		}
 		return newSeats;
-	}*/
+	}
 
 	/**
 	 * Simple String method for the Aircraft ID 
