@@ -386,7 +386,7 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() { 
-		List<Passenger> newSeats = this.getPassengers();
+		/*List<Passenger> newSeats = this.getPassengers();
 		int firstVac = this.firstCapacity - this.numFirst;
 		int businessVac = this.businessCapacity - this.numBusiness;
 		int primeVac = this.premiumCapacity - this.numPremium;
@@ -395,10 +395,11 @@ public abstract class Aircraft {
 		newSeats = movePassengers(businessVac, "P", newSeats);
 		newSeats = movePassengers(primeVac, "Y", newSeats);
 			
-		this.seats = newSeats;
+		this.seats = newSeats;*/
+		this.seats = this.seats;
 	}
 	
-	private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
+	/*private List<Passenger> movePassengers(int spaces, String flightClass, List<Passenger> newSeats){
 		int i = 0;
 		while(spaces != 0){
 			Passenger p = newSeats.get(i);
@@ -414,7 +415,7 @@ public abstract class Aircraft {
 			}
 		}
 		return newSeats;
-	}
+	}*/
 
 	/**
 	 * Simple String method for the Aircraft ID 
