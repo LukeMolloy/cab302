@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import asgn2Simulators.GUISimulator;
@@ -40,7 +41,9 @@ public class GUISimulator extends JFrame implements Runnable {
 	private JPanel pnlFour;
 	private JPanel pnlFive;
 	
-	private JLabel simLabel, fareLabel, opLabel;
+	private JTextArea rngInput, dailyInput, queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
+	
+	private JLabel simHead, fareHead, opHead, rngLabel, dailyLabel, queueLabel, cancelLabel, firstLabel, businessLabel, premiumLabel, economyLabel;
 	
 	private JButton btnRunSim;
 	private JButton btnShowChart;
@@ -66,9 +69,27 @@ public class GUISimulator extends JFrame implements Runnable {
 	    pnlFour = createPanel(Color.LIGHT_GRAY);
 	    pnlFive = createPanel(Color.LIGHT_GRAY);
 	    
-	    simLabel = createLabel("Simulation");
-	    fareLabel = createLabel("Fare Classes");
-	    opLabel = createLabel("Operation");
+	    simHead = createHeading("Simulation");
+	    fareHead = createHeading("Fare Classes");
+	    opHead = createHeading("Operation");
+	    
+	    rngLabel = createLabel("RNG Seed:");
+	    dailyLabel = createLabel("Daily Mean:");
+	    queueLabel = createLabel("Queue Size:");
+	    cancelLabel = createLabel("Cancellation:");
+	    firstLabel = createLabel("First:");
+	    businessLabel = createLabel("Business:");
+	    premiumLabel = createLabel("Premium:");
+	    economyLabel = createLabel("Economy:");
+	    
+	    rngInput = createInput();
+	    dailyInput = createInput();
+	    queueInput = createInput();
+	    cancelInput = createInput();
+	    firstInput = createInput();
+	    businessInput = createInput();
+	    premiumInput = createInput();
+	    economyInput = createInput();
 	    
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Chart");
@@ -97,12 +118,23 @@ public class GUISimulator extends JFrame implements Runnable {
 		return jb; 
 	}
 	
-	private JLabel createLabel(String str){
+	private JLabel createHeading(String str){
 		JLabel jl = new JLabel(str); 
 		jl.setFont(new Font("Courier New", Font.BOLD, 20));
 		return jl;
 	}
+	
+	private JLabel createLabel(String str){
+		JLabel jl = new JLabel(str); 
+		jl.setFont(new Font("Calibri", Font.PLAIN, 15));
+		return jl;
+	}
 
+	private JTextArea createInput(){
+		JTextArea jt = new JTextArea(); 
+		jt.setColumns(10);
+		return jt;
+	}
 	
 	private void layoutButtonPanel() {
 		GridBagLayout layout = new GridBagLayout();
@@ -116,11 +148,30 @@ public class GUISimulator extends JFrame implements Runnable {
 	    constraints.anchor = GridBagConstraints.CENTER;
 	    constraints.weightx = 100;
 	    constraints.weighty = 100;
-	    addToPanel(pnlBtn, simLabel,constraints,1,0,2,1);
-	    addToPanel(pnlBtn, fareLabel,constraints,3,0,2,1);
-	    addToPanel(pnlBtn, opLabel,constraints,5,0,2,1);
-	    addToPanel(pnlBtn, btnRunSim,constraints,5,1,2,1); 
-	    addToPanel(pnlBtn, btnShowChart,constraints,5,2,2,1); 
+	    addToPanel(pnlBtn, simHead,constraints,2,0,2,1);
+	    addToPanel(pnlBtn, fareHead,constraints,5,0,2,1);
+	    addToPanel(pnlBtn, opHead,constraints,9,0,2,1);
+	    
+	    addToPanel(pnlBtn, rngLabel,constraints,1,1,2,1);
+	    addToPanel(pnlBtn, dailyLabel,constraints,1,2,2,1);
+	    addToPanel(pnlBtn, queueLabel,constraints,1,3,2,1);
+	    addToPanel(pnlBtn, cancelLabel,constraints,1,4,2,1);
+	    addToPanel(pnlBtn, firstLabel,constraints,4,1,2,1);
+	    addToPanel(pnlBtn, businessLabel,constraints,4,2,2,1);
+	    addToPanel(pnlBtn, premiumLabel,constraints,4,3,2,1);
+	    addToPanel(pnlBtn, economyLabel,constraints,4,4,2,1);
+	    
+	    addToPanel(pnlBtn, rngInput,constraints,3,1,2,1);
+	    addToPanel(pnlBtn, dailyInput,constraints,3,2,2,1);
+	    addToPanel(pnlBtn, queueInput,constraints,3,3,2,1);
+	    addToPanel(pnlBtn, cancelInput,constraints,3,4,2,1);
+	    addToPanel(pnlBtn, firstInput,constraints,6,1,2,1);
+	    addToPanel(pnlBtn, businessInput,constraints,6,2,2,1);
+	    addToPanel(pnlBtn, premiumInput,constraints,6,3,2,1);
+	    addToPanel(pnlBtn, economyInput,constraints,6,4,2,1);
+	    
+	    addToPanel(pnlBtn, btnRunSim,constraints,9,2,2,1); 
+	    addToPanel(pnlBtn, btnShowChart,constraints,9,3,2,1); 
 	}
 	
 	/**
