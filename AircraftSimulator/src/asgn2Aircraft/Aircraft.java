@@ -444,7 +444,7 @@ public abstract class Aircraft {
 		}
 		for (Passenger p : seats){
 			if(this.numBusiness < this.businessCapacity){
-				if(p.getPassID().contains("J")){
+				if(p.getPassID().contains("P")){
 					p = p.upgrade();
 					this.numBusiness++;
 					this.numPremium--;
@@ -453,7 +453,7 @@ public abstract class Aircraft {
 		}
 		for (Passenger p : seats){
 			if(this.numPremium < this.premiumCapacity){
-				if(p.getPassID().contains("J")){
+				if(p.getPassID().contains("Y")){
 					p = p.upgrade();
 					this.numPremium++;
 					this.numEconomy--;
