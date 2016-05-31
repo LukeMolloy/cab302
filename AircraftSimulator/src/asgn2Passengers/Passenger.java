@@ -73,17 +73,27 @@ public abstract class Passenger {
 	 * OR (departureTime < bookingTime) 
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
-		this.bookingTime = bookingTime;
+		
+		//Exceptions
+		if (bookingTime < 0) {
+			throw new PassengerException("Not applicable");
+		}
+		
+		
+		if (departureTime <= 0) {
+			throw new PassengerException("Not applicable");
+		}
+
+		
+		this.bookingTime = bookingTime;	
 		this.departureTime = departureTime;
 		this.newState = true;
 		this.confirmed = false;
 		this.flown = false;
 		this.refused = false;
 		this.inQueue = false;
-		//Stuff here 
 		this.passID = "" + Passenger.index; 
-		Passenger.index++; 
-		//Stuff here 
+		Passenger.index++; 	
 	}
 	
 	/**
@@ -113,11 +123,40 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (cancellationTime < 0) OR (departureTime < cancellationTime)
 	 */
 	public void cancelSeat(int cancellationTime) throws PassengerException {
-		if (this.isConfirmed()) {
+		
+		if (this.isNew() == true) {
+			throw new PassengerException("Is new");
+		}
+		
+		
+		if (this.isQueued() == true) {
+			throw new PassengerException("Is queued");
+		}
+		
+		if (this.isRefused() == true) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (this.isFlown() == true) {
+			throw new PassengerException("Is flown");
+		}
+		
+		if (cancellationTime < 0) {
+			throw new PassengerException("Cancellation time less than 0");
+		}
+		
+		if (departureTime < cancellationTime) {
+			throw new PassengerException("Departure time less than cancellation time");
+		}
+		
 			this.newState = true;
 			this.confirmed = false;
+			this.flown = false;
+			this.refused = false;
+			this.inQueue = false;
+			
 			cancellationTime = this.getBookingTime();
-		}
+		
 	}
 
 	/**
@@ -136,25 +175,49 @@ public abstract class Passenger {
 	 * @throws PassengerException if isConfirmed(this) OR isRefused(this) OR isFlown(this)
 	 * 		   OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 	 */
-	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {		
-		if (this.isNew()) {
+	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {
+		
+		if (this.isConfirmed() == true) {
+			throw new PassengerException("Is confirmed");
+		}
+		
+		if (this.isRefused()) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (this.isFlown()) {
+			throw new PassengerException("Is flown");
+		}
+		
+		if (confirmationTime < 0) {
+			throw new PassengerException("Confirmation Time less than 0");
+		}
+		
+		if (departureTime < confirmationTime) {
+			throw new PassengerException("Departure Time less than confirmation time");
+		}
+		
+		if (this.isNew() == true) {
 			confirmedCount++;
-			this.isConfirmed();
+			this.confirmed = true;
 			this.newState = false;
-			this.confirmationTime = getConfirmationTime();
-			this.departureTime = getDepartureTime();
-		}
-		
-		if (this.isQueued()) {
-			confirmedCount++;
-			this.isConfirmed();
-			this.departureTime = getDepartureTime();
+			this.flown = false;
+			this.refused = false;
 			this.inQueue = false;
-			this.confirmationTime = getExitQueueTime();
+			this.confirmationTime = confirmationTime;
+			this.departureTime = departureTime;
 		}
-
-
 		
+		if (this.isQueued() == true) {
+			confirmedCount++;
+			this.confirmed = true;
+			this.newState = false;
+			this.flown = false;
+			this.refused = false;
+			this.inQueue = false;
+			this.departureTime = departureTime;
+			this.confirmationTime = exitQueueTime;
+		}
 	}
 
 	/**
@@ -170,11 +233,35 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (departureTime <= 0)
 	 */
 	public void flyPassenger(int departureTime) throws PassengerException {
-		if (this.isConfirmed()) {
-			this.isFlown();
-			this.confirmed = false;
-			this.departureTime = getDepartureTime();
+		
+		if (this.isNew() == true) {
+			throw new PassengerException("Is new");
 		}
+		
+		
+		if (this.isQueued() == true) {
+			throw new PassengerException("Is queued");
+		}
+		
+		if (this.isRefused() == true) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (this.isFlown() == true) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (departureTime <= 0) {
+			throw new PassengerException("Departure time less than or equal to 0");
+		}
+		
+			this.flown = true;
+			this.confirmed = false;
+			this.newState = false;
+			this.refused = false;
+			this.inQueue = false;
+			this.departureTime = getDepartureTime();
+		
 	}
 
 	/**
@@ -327,13 +414,40 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (queueTime < 0) OR (departureTime < queueTime)
 	 */
 	public void queuePassenger(int queueTime, int departureTime) throws PassengerException {
-		if (this.isNew()) {
-			queuedCount++;
-			this.isQueued();
-			this.newState = false;
-			queueTime = this.getEnterQueueTime();
-			departureTime = this.getDepartureTime();
+		
+		if (this.isQueued() == true) {
+			throw new PassengerException("Is queued");
 		}
+		
+		if (this.isConfirmed() == true) {
+			throw new PassengerException("Is confirmed");
+		}
+		
+		if (this.isRefused() == true) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (this.isFlown() == true) {
+			throw new PassengerException("Is flown");
+		}
+		
+		if (queueTime < 0) {
+			throw new PassengerException("Queue time less than 0");
+		}
+		
+		if (departureTime < queueTime) {
+			throw new PassengerException("Departure time less than queue time");
+		}
+		
+		
+			//queuedCount++;
+			this.inQueue = true;
+			this.confirmed = false;
+			this.newState = false;
+			this.flown = false;
+			this.refused = false;
+			this.enterQueueTime = queueTime;
+			this.departureTime = departureTime;
 	}
 	
 	/**
@@ -351,15 +465,42 @@ public abstract class Passenger {
 	 * 			OR (refusalTime < 0) OR (refusalTime < bookingTime)
 	 */
 	public void refusePassenger(int refusalTime) throws PassengerException {
-		if (this.isNew()) {
-			this.isRefused();
-			this.newState = false;
+		if (this.isConfirmed() == true) {
+			throw new PassengerException("Is confirmed");
 		}
 		
-		if (this.isQueued()) {
-			this.isRefused();
+		if (this.isRefused() == true) {
+			throw new PassengerException("Is refused");
+		}
+		
+		if (this.isFlown() == true) {
+			throw new PassengerException("Is flown");
+		}
+		
+		if (refusalTime < 0) {
+			throw new PassengerException("Refusal time less than 0");
+		}
+		
+		if (refusalTime < bookingTime) {
+			throw new PassengerException("Refusal time less than booking time");
+		}
+		
+		if (this.isNew() == true) {
+			this.refused = true;
+			this.confirmed = false;
 			this.newState = false;
-			refusalTime = this.getExitQueueTime();
+			this.flown = false;
+			this.inQueue = false;
+		}
+		
+		if (this.isQueued() == true) {
+			this.refused = true;
+			this.confirmed = false;
+			this.newState = false;
+			this.flown = false;
+			this.inQueue = false;
+			//refusalTime = this.getExitQueueTime();
+			this.exitQueueTime = refusalTime;
 		}
 	}
 	
