@@ -138,6 +138,10 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 5cd91d3f5d6041e78724a2815672ffac0abf9d25
 	/**
 	 * @param args
 	 */
