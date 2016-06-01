@@ -87,6 +87,7 @@ public class Chart extends ApplicationFrame {
 			cal.set(2016,0,i,6,0);
 	        Date timePoint = cal.getTime();
 	        	
+	        	getBusiness();
 	        	business = 5;
 	        	economy = 10;
 	        	premium = 5;

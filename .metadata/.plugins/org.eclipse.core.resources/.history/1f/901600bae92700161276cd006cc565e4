@@ -60,7 +60,7 @@ public class Chart extends ApplicationFrame {
      * middle, but you should use the labelled code below  
 	 * @return collection of time series for the plot 
 	 */
-	public TimeSeriesCollection createTimeSeriesData() {
+	private TimeSeriesCollection createTimeSeriesData() {
 		TimeSeriesCollection tsc = new TimeSeriesCollection(); 
 		TimeSeries bookTotal = new TimeSeries("Total Bookings");
 		TimeSeries econTotal = new TimeSeries("Economy"); 
@@ -87,6 +87,7 @@ public class Chart extends ApplicationFrame {
 			cal.set(2016,0,i,6,0);
 	        Date timePoint = cal.getTime();
 	        	
+	        	getBusiness();
 	        	business = 5;
 	        	economy = 10;
 	        	premium = 5;
