@@ -7,10 +7,13 @@
 package asgn2Simulators;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
 import asgn2Aircraft.AircraftException;
+import asgn2Aircraft.Bookings;
 import asgn2Passengers.PassengerException;
 
 /**
@@ -27,6 +30,13 @@ public class SimulationRunner {
 	 * @param args Arguments to the simulation - 
 	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
 	 */
+	public List<Integer> arrayFirst = new ArrayList<>();
+	public List<Integer> arrayBusiness = new ArrayList<>();
+	public List<Integer> arrayPremium = new ArrayList<>();
+	public List<Integer> arrayEconomy = new ArrayList<>();
+	public List<Integer> arrayEmpty = new ArrayList<>();
+	public List<Integer> arrayTotal = new ArrayList<>();
+	
 	public static void main(String[] args) {
 		final int NUM_ARGS = 10; 
 		Simulator s = null; 
@@ -158,9 +168,56 @@ public class SimulationRunner {
 			//Log progress 
 			this.log.logQREntries(time, sim);
 			this.log.logEntry(time,this.sim);
+			saveValues(this.sim, time);
+			//this.getFlightStatus(time);
 		}
+		
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
+	}
+	private void saveValues(Simulator sim, int time) throws SimulationException {
+		boolean flying = (time >= Constants.FIRST_FLIGHT);
+		if(flying){
+			Flights flights = sim.getFlights(time);
+			Bookings counts = flights.getCurrentCounts();
+			arrayFirst.add(counts.getNumFirst());
+			arrayBusiness.add(counts.getNumBusiness());
+			arrayPremium.add(counts.getNumPremium());
+			arrayEconomy.add(counts.getNumEconomy());
+			arrayEmpty.add(counts.getAvailable());
+			arrayTotal.add(counts.getTotal());
+		}else{
+			arrayFirst.add(0);
+			arrayBusiness.add(0);
+			arrayPremium.add(0);
+			arrayEconomy.add(0);
+			arrayEmpty.add(0);
+			arrayTotal.add(0);
+		}
+	}
+	
+	public List<Integer> getFirst(){
+		return arrayFirst;
+	}
+	
+	public List<Integer> getEconomy(){
+		return arrayEconomy;
+	}
+	
+	public List<Integer> getPremium(){
+		return arrayPremium;
+	}
+	
+	public List<Integer> getBusiness(){
+		return arrayBusiness;
+	}
+	
+	public List<Integer> getEmpty(){
+		return arrayEmpty;
+	}
+	
+	public List<Integer> getTotal(){
+		return arrayTotal;
 	}
 }
