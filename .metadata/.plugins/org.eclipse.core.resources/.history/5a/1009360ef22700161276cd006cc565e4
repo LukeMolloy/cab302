@@ -94,13 +94,11 @@ public class Chart extends ApplicationFrame {
 			cal.set(2016,0,i,6,0);
 	        Date timePoint = cal.getTime();
 	        	
-	        	
-	        	business = arrayBusiness.get(i);
-	        	economy = arrayEconomy.get(i);
-	        	premium = arrayPremium.get(i);
-	        	first = arrayFirst.get(i);
-	        	total = arrayTotal.get(i);
-	        	empty = arrayEmpty.get(i);
+	        	business = 5;
+	        	economy = 10;
+	        	premium = 5;
+	        	first = 7;
+	        	total = 20;
 	        	
 	      
 	        //premium++;
@@ -134,19 +132,14 @@ public class Chart extends ApplicationFrame {
 	        //HACK ENDS
 	        
 	        //This is important - steal it shamelessly 
-	        	
-	        if (business != 0 && economy != 0 && premium != 0 && first != 0) {
-		        busTotal.add(new Day(timePoint),business);
-				econTotal.add(new Day(timePoint),economy);
-				premTotal.add(new Day(timePoint), premium);
-				firstTotal.add(new Day(timePoint), first);
-				totalTotal.add(new Day(timePoint), total);
-				emptyTotal.add(new Day(timePoint), empty);
-	        }
-	        	
-
+	        busTotal.add(new Day(timePoint),business);
+			econTotal.add(new Day(timePoint),economy);
+			premTotal.add(new Day(timePoint), premium);
+			firstTotal.add(new Day(timePoint), first);
+			totalTotal.add(new Day(timePoint), total);
+			emptyTotal.add(new Day(timePoint), empty);
 			
-			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
+			bookTotal.add(new Day(timePoint), economy+business+premium+first);
 		}
 		
 		//Collection

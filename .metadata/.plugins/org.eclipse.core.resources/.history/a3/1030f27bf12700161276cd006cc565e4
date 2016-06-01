@@ -12,7 +12,6 @@ import java.awt.FlowLayout;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -47,9 +46,9 @@ public class Chart extends ApplicationFrame {
      * Constructor shares the work with the run method. 
      * @param title Frame display title
      */
-    public Chart(final String title, List<Integer> arrayFirst, List<Integer> arrayBusiness, List<Integer> arrayPremium, List<Integer> arrayEconomy, List<Integer> arrayEmpty, List<Integer> arrayTotal) {
+    public Chart(final String title) {
         super(title);
-        final TimeSeriesCollection dataset = createTimeSeriesData(arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal); 
+        final TimeSeriesCollection dataset = createTimeSeriesData(); 
         JFreeChart chart = createChart(dataset);
         this.add(new ChartPanel(chart), BorderLayout.CENTER);
         JPanel btnPanel = new JPanel(new FlowLayout());
@@ -59,15 +58,9 @@ public class Chart extends ApplicationFrame {
     /**
      * Private method creates the dataset. Lots of hack code in the 
      * middle, but you should use the labelled code below  
-     * @param arrayTotal 
-     * @param arrayEmpty 
-     * @param arrayEconomy 
-     * @param arrayPremium 
-     * @param arrayBusiness 
-     * @param arrayFirst 
 	 * @return collection of time series for the plot 
 	 */
-	public static TimeSeriesCollection createTimeSeriesData(List<Integer> arrayFirst, List<Integer> arrayBusiness, List<Integer> arrayPremium, List<Integer> arrayEconomy, List<Integer> arrayEmpty, List<Integer> arrayTotal) {
+	public TimeSeriesCollection createTimeSeriesData() {
 		TimeSeriesCollection tsc = new TimeSeriesCollection(); 
 		TimeSeries bookTotal = new TimeSeries("Total Bookings");
 		TimeSeries econTotal = new TimeSeries("Economy"); 
@@ -94,13 +87,11 @@ public class Chart extends ApplicationFrame {
 			cal.set(2016,0,i,6,0);
 	        Date timePoint = cal.getTime();
 	        	
-	        	
-	        	business = arrayBusiness.get(i);
-	        	economy = arrayEconomy.get(i);
-	        	premium = arrayPremium.get(i);
-	        	first = arrayFirst.get(i);
-	        	total = arrayTotal.get(i);
-	        	empty = arrayEmpty.get(i);
+	        	business = 5;
+	        	economy = 10;
+	        	premium = 5;
+	        	first = 7;
+	        	total = 20;
 	        	
 	      
 	        //premium++;
@@ -134,19 +125,14 @@ public class Chart extends ApplicationFrame {
 	        //HACK ENDS
 	        
 	        //This is important - steal it shamelessly 
-	        	
-	        if (business != 0 && economy != 0 && premium != 0 && first != 0) {
-		        busTotal.add(new Day(timePoint),business);
-				econTotal.add(new Day(timePoint),economy);
-				premTotal.add(new Day(timePoint), premium);
-				firstTotal.add(new Day(timePoint), first);
-				totalTotal.add(new Day(timePoint), total);
-				emptyTotal.add(new Day(timePoint), empty);
-	        }
-	        	
-
+	        busTotal.add(new Day(timePoint),business);
+			econTotal.add(new Day(timePoint),economy);
+			premTotal.add(new Day(timePoint), premium);
+			firstTotal.add(new Day(timePoint), first);
+			totalTotal.add(new Day(timePoint), total);
+			emptyTotal.add(new Day(timePoint), empty);
 			
-			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
+			bookTotal.add(new Day(timePoint), economy+business+premium+first);
 		}
 		
 		//Collection
@@ -181,11 +167,11 @@ public class Chart extends ApplicationFrame {
      * Simple main GUI runner 
      * @param args ignored 
      */
-    public static void main(final String[] args,final List<Integer> arrayFirst,final List<Integer> arrayBusiness,final List<Integer> arrayPremium,final List<Integer> arrayEconomy,final List<Integer> arrayEmpty,final List<Integer> arrayTotal) {
+    public static void main(final String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Chart demo = new Chart(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
+                Chart demo = new Chart(TITLE);
                 demo.pack();
                 RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);

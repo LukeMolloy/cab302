@@ -135,7 +135,7 @@ public class Chart extends ApplicationFrame {
 	        
 	        //This is important - steal it shamelessly 
 	        	
-	        if (business != 0 && economy != 0 && premium != 0 && first != 0) {
+	        if (business == 0 && economy == 0 && premium == 0 && first == 0) {
 		        busTotal.add(new Day(timePoint),business);
 				econTotal.add(new Day(timePoint),economy);
 				premTotal.add(new Day(timePoint), premium);
@@ -144,7 +144,6 @@ public class Chart extends ApplicationFrame {
 				emptyTotal.add(new Day(timePoint), empty);
 	        }
 	        	
-
 			
 			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
 		}

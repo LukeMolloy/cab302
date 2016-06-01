@@ -258,20 +258,22 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 			Log l = new Log();
 			SimulationRunner sr = new SimulationRunner(s,l);
 			sr.runSimulation();
-			//drawChart(sr);
+			drawChart(sr);
 		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
  	}
 	
-	private void drawChart(SimulationRunner sr) {
+	public void drawChart(SimulationRunner sr) {
 		List<Integer> arrayFirst = sr.getFirst();
 		List<Integer> arrayBusiness = sr.getBusiness();
 		List<Integer> arrayPremium = sr.getPremium();
 		List<Integer> arrayEconomy = sr.getEconomy();
 		List<Integer> arrayEmpty = sr.getEmpty();
 		List<Integer> arrayTotal = sr.getTotal();
+		String[] args = null;
+		Chart.main(args, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
 		
 	}
 
