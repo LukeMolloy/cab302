@@ -15,6 +15,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+
 
 import asgn2Simulators.GUISimulator;
 
@@ -30,7 +35,7 @@ import asgn2Simulators.GUISimulator;
  *
  */
 @SuppressWarnings("serial")
-public class GUISimulator extends JFrame implements Runnable {
+public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private static final long serialVersionUID = -7031008862559936404L;
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 500;
@@ -47,6 +52,7 @@ public class GUISimulator extends JFrame implements Runnable {
 	
 	private JButton btnRunSim;
 	private JButton btnShowChart;
+	private JButton btnShowLogs;
 
 	private JPanel pnlBtn;
 	
@@ -93,6 +99,7 @@ public class GUISimulator extends JFrame implements Runnable {
 	    
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Chart");
+	    btnShowLogs = createButton("Show Logs");
 
 	    
 	    layoutButtonPanel(); 
@@ -115,6 +122,7 @@ public class GUISimulator extends JFrame implements Runnable {
 	
 	private JButton createButton(String str) {
 		JButton jb = new JButton(str); 
+		jb.addActionListener((ActionListener) this);
 		return jb; 
 	}
 	
@@ -172,6 +180,7 @@ public class GUISimulator extends JFrame implements Runnable {
 	    
 	    addToPanel(pnlBtn, btnRunSim,constraints,9,2,2,1); 
 	    addToPanel(pnlBtn, btnShowChart,constraints,9,3,2,1); 
+	    addToPanel(pnlBtn, btnShowLogs,constraints,9,4,2,1); 
 	}
 	
 	/**
@@ -207,6 +216,19 @@ public class GUISimulator extends JFrame implements Runnable {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
+	
+	public void actionPerformed(ActionEvent e) {
+		//Get event source 
+		Object src=e.getSource(); 
+		
+		if (src== btnRunSim) {
+			
+		} else if (src==btnShowChart) {
+			  
+		} else if (src==btnShowLogs) {
+			JOptionPane.showMessageDialog(this,"A Warning Message");
+		}	
+	}
 	/**
 	 * @param args
 	 */
