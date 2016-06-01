@@ -67,7 +67,7 @@ public class Chart2 extends ApplicationFrame {
      * @param arrayFirst 
 	 * @return collection of time series for the plot 
 	 */
-	public static TimeSeriesCollection createTimeSeriesData(List<Integer> arrayQueue, List<Integer> arrayRefuse) {
+	public static TimeSeriesCollection createTimeSeriesData(List<Integer> arrayFirst, List<Integer> arrayBusiness, List<Integer> arrayPremium, List<Integer> arrayEconomy, List<Integer> arrayEmpty, List<Integer> arrayTotal) {
 		TimeSeriesCollection tsc = new TimeSeriesCollection(); 
 		TimeSeries queuedTotal = new TimeSeries("Queued");
 		TimeSeries refusedTotal = new TimeSeries("Refused"); 
@@ -86,13 +86,53 @@ public class Chart2 extends ApplicationFrame {
 	        Date timePoint = cal.getTime();
 	        	
 	        	
-	        	queued = arrayQueue.get(i);
-	        	refused = arrayRefuse.get(i);
-	       
+	        	queued = arrayBusiness.get(i);
+	        	economy = arrayEconomy.get(i);
+	        	premium = arrayPremium.get(i);
+	        	first = arrayFirst.get(i);
+	        	total = arrayTotal.get(i);
+	        	empty = arrayEmpty.get(i);
 	        	
-	        if (queued != 0 && refused != 0) {
-		        queuedTotal.add(new Day(timePoint),queued);
-				refusedTotal.add(new Day(timePoint),refused);
+	      
+	        //premium++;
+	        //first++;
+	        
+	        
+	        
+	        //HACK BEGINS
+	        /**if (i<9*7) {
+	        	if (randomSuccess(0.2,rng)) {
+	        		economy++; 
+	        	}
+	        	if (randomSuccess(0.1,rng)) {
+	        		business++;
+	        	}
+	        } else if (i < 18*7) {
+	        	if (randomSuccess(0.15,rng)) {
+	        		economy++; 
+	        	} else if (randomSuccess(0.4,rng)) {
+	        		economy = Math.max(economy-1,0);
+	        	}
+	        	if (randomSuccess(0.05,rng)) {
+	        		business++; 
+	        	} else if (randomSuccess(0.2,rng)) {
+	        		business = Math.max(business-1,0);
+	        	}
+	        } else {
+	        	economy=0; 
+	        	business =0;
+	        }**/
+	        //HACK ENDS
+	        
+	        //This is important - steal it shamelessly 
+	        	
+	        if (business != 0 && economy != 0 && premium != 0 && first != 0) {
+		        busTotal.add(new Day(timePoint),business);
+				econTotal.add(new Day(timePoint),economy);
+				premTotal.add(new Day(timePoint), premium);
+				firstTotal.add(new Day(timePoint), first);
+				totalTotal.add(new Day(timePoint), total);
+				emptyTotal.add(new Day(timePoint), empty);
 	        }
 	        	
 
@@ -101,8 +141,13 @@ public class Chart2 extends ApplicationFrame {
 		}
 		
 		//Collection
-		tsc.addSeries(queuedTotal);
-		tsc.addSeries(refusedTotal);
+		tsc.addSeries(bookTotal);
+		tsc.addSeries(econTotal);
+		tsc.addSeries(busTotal);
+		tsc.addSeries(premTotal);
+		tsc.addSeries(firstTotal);
+		tsc.addSeries(totalTotal);
+		tsc.addSeries(emptyTotal);
 		return tsc; 
 	}
 	
@@ -127,11 +172,11 @@ public class Chart2 extends ApplicationFrame {
      * Simple main GUI runner 
      * @param args ignored 
      */
-    public static void main(final String[] args,final List<Integer> arrayQueue,final List<Integer> arrayRefuse) {
+    public static void main(final String[] args,final List<Integer> arrayFirst,final List<Integer> arrayBusiness,final List<Integer> arrayPremium,final List<Integer> arrayEconomy,final List<Integer> arrayEmpty,final List<Integer> arrayTotal) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Chart2 demo = new Chart2(TITLE, arrayQueue, arrayRefuse);
+                Chart2 demo = new Chart2(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
                 demo.pack();
                 RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);

@@ -101,8 +101,13 @@ public class Chart2 extends ApplicationFrame {
 		}
 		
 		//Collection
-		tsc.addSeries(queuedTotal);
-		tsc.addSeries(refusedTotal);
+		tsc.addSeries(bookTotal);
+		tsc.addSeries(econTotal);
+		tsc.addSeries(busTotal);
+		tsc.addSeries(premTotal);
+		tsc.addSeries(firstTotal);
+		tsc.addSeries(totalTotal);
+		tsc.addSeries(emptyTotal);
 		return tsc; 
 	}
 	
@@ -127,11 +132,11 @@ public class Chart2 extends ApplicationFrame {
      * Simple main GUI runner 
      * @param args ignored 
      */
-    public static void main(final String[] args,final List<Integer> arrayQueue,final List<Integer> arrayRefuse) {
+    public static void main(final String[] args,final List<Integer> arrayFirst,final List<Integer> arrayBusiness,final List<Integer> arrayPremium,final List<Integer> arrayEconomy,final List<Integer> arrayEmpty,final List<Integer> arrayTotal) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Chart2 demo = new Chart2(TITLE, arrayQueue, arrayRefuse);
+                Chart2 demo = new Chart2(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
                 demo.pack();
                 RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);
