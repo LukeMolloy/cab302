@@ -2,7 +2,11 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="asgn2Aircraft.Aircraft"/>
 <fullyQualifiedTypeName name="asgn2Aircraft.AircraftException"/>
-<fullyQualifiedTypeName name="asgn2Passengers.First"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="asgn2Passengers.Business"/>
+<fullyQualifiedTypeName name="asgn2Passengers.Economy"/>
+<fullyQualifiedTypeName name="asgn2Passengers.Premium"/>
+<fullyQualifiedTypeName name="asgn2Passengers.Passenger"/>
+<fullyQualifiedTypeName name="asgn2Passengers.First"/>
 </qualifiedTypeNameHistroy>

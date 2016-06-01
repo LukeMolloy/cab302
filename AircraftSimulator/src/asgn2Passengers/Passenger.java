@@ -59,8 +59,8 @@ public abstract class Passenger {
 	protected int exitQueueTime;
 	protected int confirmationTime;
 	protected int departureTime; 
-	private static int confirmedCount = 0;
-	private static int queuedCount = 0;
+	protected int confirmedCount = 0;
+	protected int queuedCount = 0;
 	
 	/**
 	 * Passenger Constructor 
@@ -440,7 +440,7 @@ public abstract class Passenger {
 		}
 		
 		
-			//queuedCount++;
+			queuedCount++;
 			this.inQueue = true;
 			this.confirmed = false;
 			this.newState = false;
