@@ -28,19 +28,32 @@ public class SimulationRunner {
 	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
 	 */
 	public static void main(String[] args) {
-		final int NUM_ARGS = 9; 
+		final int NUM_ARGS = 10; 
 		Simulator s = null; 
 		Log l = null; 
+		boolean noGUI = false;
 		
 		try {
 			switch (args.length) {
 				case NUM_ARGS: {
-					s = createSimulatorUsingArgs(args); 
-					break;
+					if(args[9].equals("runGUI")){
+						GUISimulator.main(args);
+					}else{
+						s = createSimulatorUsingArgs(args);
+						noGUI = true;
+						break;
+					}
 				}
-				case 0: {
-					SwingUtilities.invokeLater(new GUISimulator("BorderLayout"));
+				case 1: {
+					if(args[0].equals("runGUI")){
+						GUISimulator.main(args);
+					}else{
+						
+					}
+				}
+				case 0: {		
 					s = new Simulator();
+					noGUI = true;
 					break;
 				}
 				default: {
@@ -54,13 +67,15 @@ public class SimulationRunner {
 		}
 	
 		//Run the simulation 
-		SimulationRunner sr = new SimulationRunner(s,l);
-		try {
-			sr.runSimulation();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} 
+		if(noGUI){
+			SimulationRunner sr = new SimulationRunner(s,l);
+			try {
+				sr.runSimulation();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.exit(-1);
+			} 
+		}	
  	}
 	/**
 	 * Helper to process args for Simulator  

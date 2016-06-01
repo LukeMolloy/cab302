@@ -16,7 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+
+import asgn2Aircraft.AircraftException;
+import asgn2Passengers.PassengerException;
+
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
@@ -229,9 +233,12 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		Object src=e.getSource(); 
 		
 		if (src== btnRunSim) {
-			double mean = 0.33*parseInt(dailyInput.getText());
-			String meanSD = Double.toString(mean);
-			String[] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
+			try {
+				RunGUI();
+			} catch (IOException | SimulationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (src==btnShowChart) {
 			  
 		} else if (src==btnShowLogs) {
@@ -239,14 +246,42 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		}	
 	}
 	
+	public void RunGUI() throws IOException, SimulationException {
+		double mean = 0.33*parseInt(dailyInput.getText());
+		String meanSD = Double.toString(mean);
+		String [] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
+		
+		try {
+			Simulator s = createSimulatorUsingArgsGUI(args);
+			Log l = new Log();
+			SimulationRunner sr = new SimulationRunner(s,l);
+			sr.runSimulation();
+		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+ 	}
 	
+	private static Simulator createSimulatorUsingArgsGUI(String[] args) throws SimulationException{
+		int seed = Integer.parseInt(args[0]);
+		int maxQueueSize = Integer.parseInt(args[1]);
+		double meanBookings = Double.parseDouble(args[2]);
+		double sdBookings = Double.parseDouble(args[3]);
+		double firstProb = Double.parseDouble(args[4]);
+		double businessProb = Double.parseDouble(args[5]);
+		double premiumProb = Double.parseDouble(args[6]);
+		double economyProb = Double.parseDouble(args[7]);
+		double cancelProb = Double.parseDouble(args[8]);
+		return new Simulator(seed,maxQueueSize,meanBookings,sdBookings,firstProb,businessProb,
+						  premiumProb,economyProb,cancelProb);
+	}
 	/**
 	 * @param args
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 	    JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(new GUISimulator("BorderLayout"));
         
-	}*/
+	}
 
 }
