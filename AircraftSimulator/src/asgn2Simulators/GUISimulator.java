@@ -17,6 +17,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import asgn2Simulators.Chart;
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.PassengerException;
 
@@ -256,12 +258,23 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 			Log l = new Log();
 			SimulationRunner sr = new SimulationRunner(s,l);
 			sr.runSimulation();
+			//drawChart(sr);
 		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
  	}
 	
+	private void drawChart(SimulationRunner sr) {
+		List<Integer> arrayFirst = sr.getFirst();
+		List<Integer> arrayBusiness = sr.getBusiness();
+		List<Integer> arrayPremium = sr.getPremium();
+		List<Integer> arrayEconomy = sr.getEconomy();
+		List<Integer> arrayEmpty = sr.getEmpty();
+		List<Integer> arrayTotal = sr.getTotal();
+		
+	}
+
 	private static Simulator createSimulatorUsingArgsGUI(String[] args) throws SimulationException{
 		int seed = Integer.parseInt(args[0]);
 		int maxQueueSize = Integer.parseInt(args[1]);
