@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import asgn2Simulators.Chart;
+import asgn2Simulators.Chart2;
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.PassengerException;
 
@@ -272,8 +273,11 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		List<Integer> arrayEconomy = sr.getEconomy();
 		List<Integer> arrayEmpty = sr.getEmpty();
 		List<Integer> arrayTotal = sr.getTotal();
+		List<Integer> arrayQueue = sr.getQueue();
+		List<Integer> arrayRefuse = sr.getRefuse();
 		String[] args = null;
 		Chart.main(args, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
+		Chart2.main(args, arrayQueue, arrayRefuse);
 		
 	}
 
