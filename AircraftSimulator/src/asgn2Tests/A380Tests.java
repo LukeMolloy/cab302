@@ -384,10 +384,113 @@ public class A380Tests {
 
 	/**
 	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
 	 */
 	@Test
-	public final void testUpgradeBookings() {
-		fail("Not yet implemented"); // TODO
+	public final void testEconomyUpgradeBookings() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Economy(12, 12);
+		Passenger Bob = new Economy(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumPremium(), 2);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testBookingsEmptiesEconomy() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Economy(12, 12);
+		Passenger Bob = new Economy(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumEconomy(), 0);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testPremiumUpgradeBookings() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Premium(12, 12);
+		Passenger Bob = new Premium(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumBusiness(), 2);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testBookingsEmptiesPremium() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Premium(12, 12);
+		Passenger Bob = new Premium(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumPremium(), 0);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testBusinessUpgradeBookings() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Business(12, 12);
+		Passenger Bob = new Business(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumFirst(), 2);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testBookingsEmptiesBusiness() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new Business(12, 12);
+		Passenger Bob = new Business(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumBusiness(), 0);
 	}
 
+	/**
+	 * Test method for {@link asgn2Aircraft.Aircraft#upgradeBookings()}.
+	 * @throws AircraftException 
+	 * @throws PassengerException 
+	 */
+	@Test
+	public final void testFirstUpgradeBookings() throws AircraftException, PassengerException {
+		Aircraft plane = new A380("Code", 1230);
+		Passenger Bill = new First(12, 12);
+		Passenger Bob = new First(12, 12);
+		plane.confirmBooking(Bill, 12);
+		plane.confirmBooking(Bob, 12);
+		plane.upgradeBookings();
+		assertEquals(plane.getNumFirst(), 2);
+	}
 }
