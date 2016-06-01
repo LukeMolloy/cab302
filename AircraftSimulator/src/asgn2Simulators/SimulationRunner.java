@@ -37,6 +37,9 @@ public class SimulationRunner {
 	public List<Integer> arrayEmpty = new ArrayList<>();
 	public List<Integer> arrayTotal = new ArrayList<>();
 	
+	public List<Integer> arrayQueue = new ArrayList<>();
+	public List<Integer> arrayRefuse = new ArrayList<>();
+	
 	public static void main(String[] args) {
 		final int NUM_ARGS = 10; 
 		Simulator s = null; 
@@ -187,6 +190,7 @@ public class SimulationRunner {
 			arrayEconomy.add(counts.getNumEconomy());
 			arrayEmpty.add(counts.getAvailable());
 			arrayTotal.add(counts.getTotal());
+			
 		}else{
 			arrayFirst.add(0);
 			arrayBusiness.add(0);
@@ -195,6 +199,16 @@ public class SimulationRunner {
 			arrayEmpty.add(0);
 			arrayTotal.add(0);
 		}
+		arrayQueue.add(sim.numInQueue());
+		arrayRefuse.add(sim.numRefused());
+	}
+	
+	public List<Integer> getQueue(){
+		return arrayQueue;
+	}
+	
+	public List<Integer> getRefuse(){
+		return arrayRefuse;
 	}
 	
 	public List<Integer> getFirst(){
