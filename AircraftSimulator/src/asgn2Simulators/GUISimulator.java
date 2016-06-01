@@ -46,7 +46,9 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private JPanel pnlFour;
 	private JPanel pnlFive;
 	
-	private JTextArea rngInput, dailyInput, queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
+	private JTextArea rngInput = new JTextArea("100");
+	private JTextArea dailyInput = new JTextArea("500");
+	private JTextArea queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
 	
 	private JLabel simHead, fareHead, opHead, rngLabel, dailyLabel, queueLabel, cancelLabel, firstLabel, businessLabel, premiumLabel, economyLabel;
 	
@@ -62,6 +64,11 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	 */
 	public GUISimulator(String arg0) throws HeadlessException {
 		super(arg0);
+	}
+	
+	private double parseInt(String str){
+		double x = Double.parseDouble(str);
+		return x;
 	}
 	
 	private void createGUI() {
@@ -88,14 +95,14 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    premiumLabel = createLabel("Premium:");
 	    economyLabel = createLabel("Economy:");
 	    
-	    rngInput = createInput();
-	    dailyInput = createInput();
-	    queueInput = createInput();
-	    cancelInput = createInput();
-	    firstInput = createInput();
-	    businessInput = createInput();
-	    premiumInput = createInput();
-	    economyInput = createInput();
+	    rngInput = createInput("100");
+	    dailyInput = createInput("1300");
+	    queueInput = createInput("500");
+	    cancelInput = createInput("0.1");
+	    firstInput = createInput("0.03");
+	    businessInput = createInput("0.14");
+	    premiumInput = createInput("0.13");
+	    economyInput = createInput("0.70");
 	    
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Chart");
@@ -138,8 +145,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		return jl;
 	}
 
-	private JTextArea createInput(){
-		JTextArea jt = new JTextArea(); 
+	private JTextArea createInput(String str){
+		JTextArea jt = new JTextArea(str); 
 		jt.setColumns(10);
 		return jt;
 	}
@@ -222,19 +229,24 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		Object src=e.getSource(); 
 		
 		if (src== btnRunSim) {
-			
+			double mean = 0.33*parseInt(dailyInput.getText());
+			String meanSD = Double.toString(mean);
+			String[] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
 		} else if (src==btnShowChart) {
 			  
 		} else if (src==btnShowLogs) {
 			JOptionPane.showMessageDialog(this,"A Warning Message");
 		}	
 	}
+	
+	
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 	    JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(new GUISimulator("BorderLayout"));
-	}
+        
+	}*/
 
 }

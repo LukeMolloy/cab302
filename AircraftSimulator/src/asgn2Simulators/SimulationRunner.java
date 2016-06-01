@@ -8,6 +8,8 @@ package asgn2Simulators;
 
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
+
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.PassengerException;
 
@@ -37,7 +39,8 @@ public class SimulationRunner {
 					break;
 				}
 				case 0: {
-					s = new Simulator(); 
+					SwingUtilities.invokeLater(new GUISimulator("BorderLayout"));
+					s = new Simulator();
 					break;
 				}
 				default: {
