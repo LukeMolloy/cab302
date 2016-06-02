@@ -135,7 +135,7 @@ public class Chart2 extends ApplicationFrame {
             @Override
             public void run() {
                 Chart2 demo = new Chart2(TITLE, arrayQueue, arrayRefuse);
-                demo.setLocation(800, 462);
+                demo.setLocation(400, 200);
                 demo.pack();
                 //RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);

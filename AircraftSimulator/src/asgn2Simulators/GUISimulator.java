@@ -58,8 +58,8 @@ import asgn2Simulators.GUISimulator;
 @SuppressWarnings("serial")
 public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 925;
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 500;
 	
 
 	private JPanel pnlOne;
@@ -81,7 +81,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private String textFile;
 	private JPanel pnlBtn;
 	
-	private JScrollPane scrollPane = new JScrollPane(textArea);
+	//private JScrollPane scrollPane = new JScrollPane(textArea);
 	
 	/**
 	 * @param arg0

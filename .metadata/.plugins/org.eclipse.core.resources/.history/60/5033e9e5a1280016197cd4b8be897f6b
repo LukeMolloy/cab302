@@ -162,7 +162,7 @@ public class Chart extends ApplicationFrame {
             @Override
             public void run() {
                 Chart demo = new Chart(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
-                demo.setLocation(400, 0);
+                demo.setLocation(800, 0);
                 
                 demo.pack();
                 //RefineryUtilities.centerFrameOnScreen(demo);

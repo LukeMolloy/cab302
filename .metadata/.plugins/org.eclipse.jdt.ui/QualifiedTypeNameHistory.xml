@@ -9,4 +9,19 @@
 <fullyQualifiedTypeName name="asgn2Passengers.Premium"/>
 <fullyQualifiedTypeName name="asgn2Passengers.Passenger"/>
 <fullyQualifiedTypeName name="asgn2Passengers.First"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="org.jfree.chart.plot.CategoryPlot"/>
+<fullyQualifiedTypeName name="org.jfree.chart.renderer.xy.XYItemRenderer"/>
+<fullyQualifiedTypeName name="org.jfree.ui.RefineryUtilities"/>
+<fullyQualifiedTypeName name="com.sun.media.sound.Toolkit"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+<fullyQualifiedTypeName name="javax.swing.ScrollPaneConstants"/>
+<fullyQualifiedTypeName name="java.awt.TextArea"/>
+<fullyQualifiedTypeName name="java.util.stream.Stream"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
 </qualifiedTypeNameHistroy>
