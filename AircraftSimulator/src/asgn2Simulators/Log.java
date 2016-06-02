@@ -138,6 +138,8 @@ public class Log {
 		writer.write(sim.getSummary(time, flying));
 	}
 	
+
+	
 	/**
 	 * Log Queue and Refused Transitions for each time step. 
 	 * Logging controlled by {@link #SAVE_STATUS} 

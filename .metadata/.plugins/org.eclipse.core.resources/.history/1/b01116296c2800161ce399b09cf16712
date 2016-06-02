@@ -1,0 +1,168 @@
+/**
+ * 
+ * This file is part of the AircraftSimulator Project, written as 
+ * part of the assessment for CAB302, semester 1, 2016. 
+ * 
+ */
+package asgn2Simulators;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.JPanel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+
+/** 
+ * Example code based on the Stack Overflow example and the 
+ * standard JFreeChart demos showing the construction of a time series 
+ * data set. Some of the data creation code is clearly a quick hack
+ * and should not be taken as indicative of the required coding style. 
+ * @see http://stackoverflow.com/questions/5048852
+ * 
+ *  */
+@SuppressWarnings("serial")
+public class Chart extends ApplicationFrame {
+
+    private static final String TITLE = "Random Bookings";
+    
+    /**
+     * Constructor shares the work with the run method. 
+     * @param title Frame display title
+     */
+    public Chart(final String title, List<Integer> arrayFirst, List<Integer> arrayBusiness, List<Integer> arrayPremium, List<Integer> arrayEconomy, List<Integer> arrayEmpty, List<Integer> arrayTotal) {
+        super(title);
+        final TimeSeriesCollection dataset = createTimeSeriesData(arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal); 
+        JFreeChart chart = createChart(dataset);
+        this.add(new ChartPanel(chart), BorderLayout.CENTER);
+        JPanel btnPanel = new JPanel(new FlowLayout());
+        this.add(btnPanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * Private method creates the dataset. Lots of hack code in the 
+     * middle, but you should use the labelled code below  
+     * @param arrayTotal 
+     * @param arrayEmpty 
+     * @param arrayEconomy 
+     * @param arrayPremium 
+     * @param arrayBusiness 
+     * @param arrayFirst 
+	 * @return collection of time series for the plot 
+	 */
+	public static TimeSeriesCollection createTimeSeriesData(List<Integer> arrayFirst, List<Integer> arrayBusiness, List<Integer> arrayPremium, List<Integer> arrayEconomy, List<Integer> arrayEmpty, List<Integer> arrayTotal) {
+		TimeSeriesCollection tsc = new TimeSeriesCollection(); 
+		TimeSeries bookTotal = new TimeSeries("Total Bookings");
+		TimeSeries econTotal = new TimeSeries("Economy"); 
+		TimeSeries premTotal = new TimeSeries("Premium");
+		TimeSeries firstTotal = new TimeSeries("First"); 
+		TimeSeries busTotal = new TimeSeries("Business");
+		TimeSeries totalTotal = new TimeSeries("Total");
+		TimeSeries emptyTotal = new TimeSeries("Empty");
+		
+		
+		
+		//Base time, data set up - the calendar is needed for the time points
+		Calendar cal = GregorianCalendar.getInstance();
+		
+		int economy = 0;
+		int premium = 0; 
+		int business = 0;
+		int first = 0; 
+		int total = 0;
+		int empty = 0;
+		int numDays = 126;
+		
+		
+		for (int i=0; i<numDays; i++) {
+			//These lines are important 
+			cal.set(2016,0,i,6,0);
+	        Date timePoint = cal.getTime();
+	        	
+	        	
+	        	business = arrayBusiness.get(i);
+	        	economy = arrayEconomy.get(i);
+	        	premium = arrayPremium.get(i);
+	        	first = arrayFirst.get(i);
+	        	total = arrayTotal.get(i);
+	        	empty = arrayEmpty.get(i);
+	        
+	        //This is important - steal it shamelessly 
+	        	
+	        if (business != 0 && economy != 0 && premium != 0 && first != 0) {
+		        busTotal.add(new Day(timePoint),business);
+				econTotal.add(new Day(timePoint),economy);
+				premTotal.add(new Day(timePoint), premium);
+				firstTotal.add(new Day(timePoint), first);
+				totalTotal.add(new Day(timePoint), total);
+				emptyTotal.add(new Day(timePoint), empty);
+	        }
+	        	
+
+			
+			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
+		}
+		
+		//Collection
+		tsc.addSeries(bookTotal);
+		tsc.addSeries(econTotal);
+		tsc.addSeries(busTotal);
+		tsc.addSeries(premTotal);
+		tsc.addSeries(firstTotal);
+		tsc.addSeries(totalTotal);
+		tsc.addSeries(emptyTotal);
+		return tsc; 
+	}
+	
+
+    /**
+     * Helper method to deliver the Chart - currently uses default colours and auto range 
+     * @param dataset TimeSeriesCollection for plotting 
+     * @returns chart to be added to panel 
+     */
+    private JFreeChart createChart(final XYDataset dataset) {
+        final JFreeChart result = ChartFactory.createTimeSeriesChart(
+            TITLE, "Days", "Passengers", dataset, true, true, false);
+        final XYPlot plot = result.getXYPlot();
+        ValueAxis domain = plot.getDomainAxis();
+        domain.setAutoRange(true);
+        ValueAxis range = plot.getRangeAxis();
+        range.setAutoRange(true);
+        return result;
+    }
+
+    /**
+     * Simple main GUI runner 
+     * @param args ignored 
+     */
+    public static void main(final String[] args,final List<Integer> arrayFirst,final List<Integer> arrayBusiness,final List<Integer> arrayPremium,final List<Integer> arrayEconomy,final List<Integer> arrayEmpty,final List<Integer> arrayTotal) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Chart demo = new Chart(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
+                demo.setLocation(-100, -100);
+                demo.pack();
+                //RefineryUtilities.centerFrameOnScreen(demo);
+                demo.setVisible(true);
+            }
+        });
+    }
+}

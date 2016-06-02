@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="aircraftIDString()" key="selection"/>
+		<item value="args" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="args"/>
+			<item value="for"/>
+			<item value="bookTotal"/>
 			<item value="aircraftIDString()"/>
 			<item value="BorderLayout"/>
 			<item value="cancellation"/>

@@ -7,6 +7,7 @@
 package asgn2Simulators;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.util.Calendar;
@@ -21,6 +22,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.Minute;
@@ -41,7 +43,7 @@ import org.jfree.ui.RefineryUtilities;
 @SuppressWarnings("serial")
 public class Chart extends ApplicationFrame {
 
-    private static final String TITLE = "Random Bookings";
+    private static final String TITLE = "Simulation 1";
     
     /**
      * Constructor shares the work with the run method. 
@@ -77,6 +79,8 @@ public class Chart extends ApplicationFrame {
 		TimeSeries totalTotal = new TimeSeries("Total");
 		TimeSeries emptyTotal = new TimeSeries("Empty");
 		
+		
+		
 		//Base time, data set up - the calendar is needed for the time points
 		Calendar cal = GregorianCalendar.getInstance();
 		
@@ -88,7 +92,7 @@ public class Chart extends ApplicationFrame {
 		int empty = 0;
 		int numDays = 126;
 		
-		//Hack loop to make it interesting. Grows for half of it, then declines
+		
 		for (int i=0; i<numDays; i++) {
 			//These lines are important 
 			cal.set(2016,0,i,6,0);
@@ -101,37 +105,6 @@ public class Chart extends ApplicationFrame {
 	        	first = arrayFirst.get(i);
 	        	total = arrayTotal.get(i);
 	        	empty = arrayEmpty.get(i);
-	        	
-	      
-	        //premium++;
-	        //first++;
-	        
-	        
-	        
-	        //HACK BEGINS
-	        /**if (i<9*7) {
-	        	if (randomSuccess(0.2,rng)) {
-	        		economy++; 
-	        	}
-	        	if (randomSuccess(0.1,rng)) {
-	        		business++;
-	        	}
-	        } else if (i < 18*7) {
-	        	if (randomSuccess(0.15,rng)) {
-	        		economy++; 
-	        	} else if (randomSuccess(0.4,rng)) {
-	        		economy = Math.max(economy-1,0);
-	        	}
-	        	if (randomSuccess(0.05,rng)) {
-	        		business++; 
-	        	} else if (randomSuccess(0.2,rng)) {
-	        		business = Math.max(business-1,0);
-	        	}
-	        } else {
-	        	economy=0; 
-	        	business =0;
-	        }**/
-	        //HACK ENDS
 	        
 	        //This is important - steal it shamelessly 
 	        	
@@ -144,9 +117,6 @@ public class Chart extends ApplicationFrame {
 				emptyTotal.add(new Day(timePoint), empty);
 	        }
 	        	
-
-			
-			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
 		}
 		
 		//Collection
@@ -170,6 +140,12 @@ public class Chart extends ApplicationFrame {
         final JFreeChart result = ChartFactory.createTimeSeriesChart(
             TITLE, "Days", "Passengers", dataset, true, true, false);
         final XYPlot plot = result.getXYPlot();
+        plot.getRenderer().setSeriesPaint(1, Color.RED);
+        plot.getRenderer().setSeriesPaint(2, Color.BLUE);
+        plot.getRenderer().setSeriesPaint(3, Color.GREEN);
+        plot.getRenderer().setSeriesPaint(4, Color.BLACK);
+        plot.getRenderer().setSeriesPaint(5, Color.CYAN);
+        plot.getRenderer().setSeriesPaint(6, Color.GRAY);
         ValueAxis domain = plot.getDomainAxis();
         domain.setAutoRange(true);
         ValueAxis range = plot.getRangeAxis();
@@ -186,8 +162,10 @@ public class Chart extends ApplicationFrame {
             @Override
             public void run() {
                 Chart demo = new Chart(TITLE, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
+                demo.setLocation(800, 0);
+                
                 demo.pack();
-                RefineryUtilities.centerFrameOnScreen(demo);
+                //RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);
             }
         });

@@ -17,6 +17,8 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -26,10 +28,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import org.jfree.ui.RefineryUtilities;
+
+import asgn2Simulators.Log;
 import asgn2Simulators.Chart;
 import asgn2Simulators.Chart2;
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.PassengerException;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -45,7 +51,7 @@ import asgn2Simulators.GUISimulator;
 public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private static final long serialVersionUID = -7031008862559936404L;
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 925;
 	
 
 	private JPanel pnlOne;
@@ -53,6 +59,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private JPanel pnlFour;
 	private JPanel pnlFive;
 	
+	private JTextArea ta = new JTextArea("");
 	private JTextArea rngInput = new JTextArea("100");
 	private JTextArea dailyInput = new JTextArea("500");
 	private JTextArea queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
@@ -83,6 +90,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setLayout(new BorderLayout());
 	    
+	    
 	    pnlOne = createPanel(Color.WHITE);
 	    pnlTwo = createPanel(Color.LIGHT_GRAY);
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
@@ -102,6 +110,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    premiumLabel = createLabel("Premium:");
 	    economyLabel = createLabel("Economy:");
 	    
+	    
 	    rngInput = createInput("100");
 	    dailyInput = createInput("1300");
 	    queueInput = createInput("500");
@@ -112,7 +121,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    economyInput = createInput("0.70");
 	    
 	    btnRunSim = createButton("Run Simulation");
-	    btnShowChart = createButton("Show Chart");
+	    btnShowChart = createButton("Show Charts");
 	    btnShowLogs = createButton("Show Logs");
 
 	    
@@ -133,6 +142,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		jp.setBackground(c);
 		return jp;
 	}
+	
+
 	
 	private JButton createButton(String str) {
 		JButton jb = new JButton(str); 
@@ -243,13 +254,47 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 				e1.printStackTrace();
 			}
 		} else if (src==btnShowChart) {
+			try {
+				RunCharts();
+			} catch (IOException | SimulationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			  
 		} else if (src==btnShowLogs) {
 			JOptionPane.showMessageDialog(this,"A Warning Message");
 		}	
 	}
 	
+	public void stringPrinter (String str) {
+		ta.append(str);
+		
+	}
+	
 	public void RunGUI() throws IOException, SimulationException {
+		double mean = 0.33*parseInt(dailyInput.getText());
+		String meanSD = Double.toString(mean);
+		String [] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
+		
+		
+		try {
+			Simulator s = createSimulatorUsingArgsGUI(args);
+			Log l = new Log();
+			SimulationRunner sr = new SimulationRunner(s,l);
+			sr.runSimulation();
+		    pnlOne.add(ta);
+		    revalidate();
+		    repaint();
+
+			
+
+		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+ 	}
+	
+	public void RunCharts() throws IOException, SimulationException{
 		double mean = 0.33*parseInt(dailyInput.getText());
 		String meanSD = Double.toString(mean);
 		String [] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
@@ -260,11 +305,14 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 			SimulationRunner sr = new SimulationRunner(s,l);
 			sr.runSimulation();
 			drawChart(sr);
+
+			
+
 		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
- 	}
+	}
 	
 	public void drawChart(SimulationRunner sr) {
 		List<Integer> arrayFirst = sr.getFirst();
@@ -276,6 +324,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		List<Integer> arrayQueue = sr.getQueue();
 		List<Integer> arrayRefuse = sr.getRefuse();
 		String[] args = null;
+		
 		Chart.main(args, arrayFirst, arrayBusiness, arrayPremium, arrayEconomy, arrayEmpty, arrayTotal);
 		Chart2.main(args, arrayQueue, arrayRefuse);
 		

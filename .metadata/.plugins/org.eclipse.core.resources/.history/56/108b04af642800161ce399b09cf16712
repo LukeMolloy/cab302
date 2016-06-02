@@ -1,0 +1,257 @@
+/**
+ * 
+ * This file is part of the AircraftSimulator Project, written as 
+ * part of the assessment for CAB302, semester 1, 2016. 
+ * 
+ */
+package asgn2Simulators;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
+
+import asgn2Aircraft.AircraftException;
+import asgn2Aircraft.Bookings;
+import asgn2Passengers.PassengerException;
+import asgn2Simulators.GUISimulator;
+
+/**
+ * Class to operate the simulation, taking parameters and utility methods from the Simulator
+ * to control the available resources, and using Log to provide a record of operation. 
+ * 
+ * @author hogan
+ *
+ */ 
+public class SimulationRunner {
+	/**
+	 * Main program for the simulation 
+	 * 
+	 * @param args Arguments to the simulation - 
+	 * see {@link asgn2Simulators.SimulationRunner#printErrorAndExit()}
+	 */
+	public List<Integer> arrayFirst = new ArrayList<>();
+	public List<Integer> arrayBusiness = new ArrayList<>();
+	public List<Integer> arrayPremium = new ArrayList<>();
+	public List<Integer> arrayEconomy = new ArrayList<>();
+	public List<Integer> arrayEmpty = new ArrayList<>();
+	public List<Integer> arrayTotal = new ArrayList<>();
+	
+	public List<Integer> arrayQueue = new ArrayList<>();
+	public List<Integer> arrayRefuse = new ArrayList<>();
+	
+	public static void main(String[] args) {
+		final int NUM_ARGS = 10; 
+		Simulator s = null; 
+		Log l = null; 
+		GUISimulator guiSim = null;
+		boolean noGUI = false;
+		
+		try {
+			switch (args.length) {
+				case NUM_ARGS: {
+					if(args[9].equals("runGUI")){
+						GUISimulator.main(args);
+					}else{
+						s = createSimulatorUsingArgs(args);
+						noGUI = true;
+						break;
+					}
+				}
+				case 1: {
+					if(args[0].equals("runGUI")){
+						GUISimulator.main(args);
+					}else{
+						
+					}
+				}
+				case 0: {		
+					s = new Simulator();
+					noGUI = true;
+					break;
+				}
+				default: {
+					printErrorAndExit(); 
+				}
+			}
+			l = new Log();
+		} catch (SimulationException | IOException e1) {
+			e1.printStackTrace();
+			System.exit(-1);
+		}
+	
+		//Run the simulation 
+		if(noGUI){
+			SimulationRunner sr = new SimulationRunner(s,l);
+			try {
+				sr.runSimulation(guiSim);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.exit(-1);
+			} 
+		}	
+ 	}
+	/**
+	 * Helper to process args for Simulator  
+	 * 
+	 * @param args Command line arguments (see usage message) 
+	 * @return new <code>Simulator</code> from the arguments 
+	 * @throws SimulationException if invalid arguments. 
+	 * See {@link asgn2Simulators.Simulator#Simulator(int, int, double, double, double, double, double, double, double)}
+	 */
+	private static Simulator createSimulatorUsingArgs(String[] args) throws SimulationException {
+		int seed = Integer.parseInt(args[0]);
+		int maxQueueSize = Integer.parseInt(args[1]);
+		double meanBookings = Double.parseDouble(args[2]);
+		double sdBookings = Double.parseDouble(args[3]);
+		double firstProb = Double.parseDouble(args[4]);
+		double businessProb = Double.parseDouble(args[5]);
+		double premiumProb = Double.parseDouble(args[6]);
+		double economyProb = Double.parseDouble(args[7]);
+		double cancelProb = Double.parseDouble(args[8]);
+		return new Simulator(seed,maxQueueSize,meanBookings,sdBookings,firstProb,businessProb,
+						  premiumProb,economyProb,cancelProb);	
+	}
+	
+	/**
+	 *  Helper to generate usage message 
+	 */
+	private static void printErrorAndExit() {
+		String str = "Usage: java asgn2Simulators.SimulationRunner [SIM Args]\n";
+		str += "SIM Args: seed maxQueueSize meanBookings sdBookings "; 
+		str += "firstProb businessProb premiumProb economyProb cancelProb\n";
+		str += "If no arguments, default values are used\n";
+		System.err.println(str);
+		System.exit(-1);
+	}
+	
+	
+	private Simulator sim;
+	private Log log; 
+
+	/**
+	 * Constructor just does initialisation 
+	 * 
+	 * @param sim <code>Simulator</code> containing simulation parameters
+	 * @param log <code>Log</code> object supporting record of operation 
+	 */
+	public SimulationRunner(Simulator sim, Log log) {
+		this.sim = sim;
+		this.log = log;
+	}
+
+	/**
+	 * Method to run the simulation from start to finish. 
+	 * Exceptions are propagated upwards as necessary 
+	 * 
+	 * @throws AircraftException See methods from {@link asgn2Simulators.Simulator} 
+	 * @throws PassengerException See methods from {@link asgn2Simulators.Simulator} 
+	 * @throws SimulationException See methods from {@link asgn2Simulators.Simulator} 
+	 * @throws IOException on logging failures See methods from {@link asgn2Simulators.Log} 
+
+	 */
+	public void runSimulation() throws AircraftException, PassengerException, SimulationException, IOException {
+		//GUISimulator guiSim = new GUISimulator(null);
+		this.sim.createSchedule();
+		this.log.initialEntry(this.sim);
+		initialLogEntry(guiSim);
+		
+		
+		//Main simulation loop 
+		for (int time=0; time<=Constants.DURATION; time++) {
+			this.sim.resetStatus(time); 
+			this.sim.rebookCancelledPassengers(time); 
+			this.sim.generateAndHandleBookings(time);
+			this.sim.processNewCancellations(time);
+			if (time >= Constants.FIRST_FLIGHT) {
+				this.sim.processUpgrades(time);
+				this.sim.processQueue(time);
+				this.sim.flyPassengers(time);
+				this.sim.updateTotalCounts(time); 
+				this.log.logFlightEntries(time, sim);
+			} else {
+				this.sim.processQueue(time);
+			}
+			//Log progress 
+			this.log.logQREntries(time, sim);
+			this.log.logEntry(time,this.sim);
+			saveValues(this.sim, time);
+			//this.getFlightStatus(time);
+		}
+		
+		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
+		this.log.logQREntries(Constants.DURATION, sim);
+		this.log.finalise(this.sim);
+	}
+	
+	
+	private void saveValues(Simulator sim, int time) throws SimulationException {
+		boolean flying = (time >= Constants.FIRST_FLIGHT);
+		if(flying){
+			Flights flights = sim.getFlights(time);
+			Bookings counts = flights.getCurrentCounts();
+			arrayFirst.add(counts.getNumFirst());
+			arrayBusiness.add(counts.getNumBusiness());
+			arrayPremium.add(counts.getNumPremium());
+			arrayEconomy.add(counts.getNumEconomy());
+			arrayEmpty.add(counts.getAvailable());
+			arrayTotal.add(counts.getTotal());
+			
+		}else{
+			arrayFirst.add(0);
+			arrayBusiness.add(0);
+			arrayPremium.add(0);
+			arrayEconomy.add(0);
+			arrayEmpty.add(0);
+			arrayTotal.add(0);
+		}
+		arrayQueue.add(sim.numInQueue());
+		arrayRefuse.add(sim.numRefused());
+	}
+	
+	public List<Integer> getQueue(){
+		return arrayQueue;
+	}
+	
+	public List<Integer> getRefuse(){
+		return arrayRefuse;
+	}
+	
+	public List<Integer> getFirst(){
+		return arrayFirst;
+	}
+	
+	public List<Integer> getEconomy(){
+		return arrayEconomy;
+	}
+	
+	public List<Integer> getPremium(){
+		return arrayPremium;
+	}
+	
+	public List<Integer> getBusiness(){
+		return arrayBusiness;
+	}
+	
+	public List<Integer> getEmpty(){
+		return arrayEmpty;
+	}
+	
+	public List<Integer> getTotal(){
+		return arrayTotal;
+	}
+	
+	public void initialLogEntry(GUISimulator guiSim) throws IOException, SimulationException {
+		guiSim.stringPrinter(": Start of Simulation\n");
+		guiSim.stringPrinter(sim.toString() + "\n");
+		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
+		guiSim.stringPrinter(capacities);
+	}
+	
+	
+	/**private void displayEntry(time, GUISimulator gui, Simulator sim) {
+			boolean flying = (time >= Constants.FIRST_FLIGHT);
+			stringPrinter(sim.getSummary(time, flying));
+	}**/
+}

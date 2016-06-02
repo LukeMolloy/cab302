@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import asgn2Aircraft.AircraftException;
 import asgn2Aircraft.Bookings;
 import asgn2Passengers.PassengerException;
+import asgn2Simulators.GUISimulator;
 
 /**
  * Class to operate the simulation, taking parameters and utility methods from the Simulator
@@ -44,6 +45,7 @@ public class SimulationRunner {
 		final int NUM_ARGS = 10; 
 		Simulator s = null; 
 		Log l = null; 
+		GUISimulator guiSim = null;
 		boolean noGUI = false;
 		
 		try {
@@ -150,8 +152,13 @@ public class SimulationRunner {
 
 	 */
 	public void runSimulation() throws AircraftException, PassengerException, SimulationException, IOException {
+		GUISimulator guiSim = new GUISimulator(null);
 		this.sim.createSchedule();
 		this.log.initialEntry(this.sim);
+		//GUISimulator guiSim = null;
+		initialLogEntry(guiSim);
+
+		
 		
 		//Main simulation loop 
 		for (int time=0; time<=Constants.DURATION; time++) {
@@ -179,6 +186,9 @@ public class SimulationRunner {
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
 	}
+	
+	
+	
 	private void saveValues(Simulator sim, int time) throws SimulationException {
 		boolean flying = (time >= Constants.FIRST_FLIGHT);
 		if(flying){
@@ -234,4 +244,17 @@ public class SimulationRunner {
 	public List<Integer> getTotal(){
 		return arrayTotal;
 	}
+	
+	public void initialLogEntry(GUISimulator guiSim) throws IOException, SimulationException {
+		guiSim.stringPrinter(": Start of Simulation\n");
+		guiSim.stringPrinter(sim.toString() + "\n");
+		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
+		guiSim.stringPrinter(capacities);
+	}
+	
+	
+	/**private void displayEntry(time, GUISimulator gui, Simulator sim) {
+			boolean flying = (time >= Constants.FIRST_FLIGHT);
+			stringPrinter(sim.getSummary(time, flying));
+	}**/
 }

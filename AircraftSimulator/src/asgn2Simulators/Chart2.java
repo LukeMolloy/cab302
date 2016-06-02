@@ -41,7 +41,7 @@ import org.jfree.ui.RefineryUtilities;
 @SuppressWarnings("serial")
 public class Chart2 extends ApplicationFrame {
 
-    private static final String TITLE = "Random Bookings";
+    private static final String TITLE = "Simulation 2";
     
     /**
      * Constructor shares the work with the run method. 
@@ -132,8 +132,9 @@ public class Chart2 extends ApplicationFrame {
             @Override
             public void run() {
                 Chart2 demo = new Chart2(TITLE, arrayQueue, arrayRefuse);
+                demo.setLocation(800, 462);
                 demo.pack();
-                RefineryUtilities.centerFrameOnScreen(demo);
+                //RefineryUtilities.centerFrameOnScreen(demo);
                 demo.setVisible(true);
             }
         });
