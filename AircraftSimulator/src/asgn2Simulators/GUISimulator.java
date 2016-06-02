@@ -57,71 +57,82 @@ import asgn2Simulators.GUISimulator;
  */
 @SuppressWarnings("serial")
 public class GUISimulator extends JFrame implements ActionListener, Runnable {
+	
+	//Dimensions of the GUI window
 	private static final long serialVersionUID = -7031008862559936404L;
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 500;
 	
-
+	//Establish all the panels
 	private JPanel pnlOne;
 	private JPanel pnlTwo;
 	private JPanel pnlFour;
 	private JPanel pnlFive;
+	private JPanel pnlBtn;
 	
+	//Establish all the text areas
 	private JTextArea textArea;
-	
 	private JTextArea rngInput = new JTextArea("100");
 	private JTextArea dailyInput = new JTextArea("500");
 	private JTextArea queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
 	
+	//Establish the labels
 	private JLabel simHead, fareHead, opHead, rngLabel, dailyLabel, queueLabel, cancelLabel, firstLabel, businessLabel, premiumLabel, economyLabel;
-	
+
+	//Establish buttons
 	private JButton btnRunSim;
 	private JButton btnShowChart;
 	private JButton btnShowLogs;
-	private String textFile;
-	private JPanel pnlBtn;
 	
-	//private JScrollPane scrollPane = new JScrollPane(textArea);
+	//Establish the string to store the directory of the log file
+	private String textFile;
+	
 	
 	/**
 	 * @param arg0
 	 * @throws HeadlessException
 	 */
+	
+	//Establish the GUISimulator
 	public GUISimulator(String arg0) throws HeadlessException {
 		super(arg0);
 	}
 	
-	
+	//Setter to help grab log file
 	private void setTextFile(String value) {
 		textFile = value;
 	}
 	
+	//Getter to return the log file
 	private String getTextFile() {
 		return textFile;
 	}
 	
-	
+	//Turn a string into a double
 	private double parseInt(String str){
 		double x = Double.parseDouble(str);
 		return x;
 	}
 	
+	//Make the GUI
 	private void createGUI() {
 		setSize(WIDTH, HEIGHT);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setLayout(new BorderLayout());
 	    
-	    
+	    //Create the panels
 	    pnlOne = createPanel(Color.WHITE);
 	    pnlTwo = createPanel(Color.LIGHT_GRAY);
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
 	    pnlFour = createPanel(Color.LIGHT_GRAY);
 	    pnlFive = createPanel(Color.LIGHT_GRAY);
 	    
+	    //Create the headings
 	    simHead = createHeading("Simulation");
 	    fareHead = createHeading("Fare Classes");
 	    opHead = createHeading("Operation");
 	    
+	    //Create the labels
 	    rngLabel = createLabel("RNG Seed:");
 	    dailyLabel = createLabel("Daily Mean:");
 	    queueLabel = createLabel("Queue Size:");
@@ -131,7 +142,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    premiumLabel = createLabel("Premium:");
 	    economyLabel = createLabel("Economy:");
 	    
-	    
+	    //Create the inputs
 	    rngInput = createInput("100");
 	    dailyInput = createInput("1300");
 	    queueInput = createInput("500");
@@ -141,18 +152,30 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    premiumInput = createInput("0.13");
 	    economyInput = createInput("0.70");
 	    
+	    //Create the buttons
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Charts");
+	    
+	    //Allow the run sim button to be pressed but the show chart button to not be
 	    btnRunSim.setEnabled(true);
 		btnShowChart.setEnabled(false);
 
+		//Create the text area
 	    textArea = createCenterTextArea();
 	    
 	    layoutButtonPanel(); 
+	    
 	    pnlOne.setLayout(new BorderLayout());
+	    
+	    //Make the text area scrollable
 	    JScrollPane scrollPane = new JScrollPane(textArea);
+	    
+	    //Ensure it will also scroll vertical
 	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    
+	    //Add the scrollable text box to display the log results
 	    pnlOne.add(scrollPane, BorderLayout.CENTER);
+	    
 	    this.getContentPane().add(pnlOne,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlTwo,BorderLayout.NORTH);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
@@ -163,58 +186,100 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    this.setVisible(true);
 	}
 	
+	
 	private JTextArea createCenterTextArea() {
+		//Make a text area
 		JTextArea ta = new JTextArea();
+		
+		//Text area cannot be edited when viewed on the GUI
 		ta.setEditable(false);
-		ta.setLineWrap(true);
+		
+		//Disable line wraps to enable horizontal scrolling
+		ta.setLineWrap(false);
+		
+		//Change the font of the text box
 		ta.setFont(new Font("Arial", Font.PLAIN,12));
+		
+		//Change the border of the text box
 		ta.setBorder(BorderFactory.createEtchedBorder());
+		
+		//Return the text box
 		return ta;
 
 	}
 	
-	
-	
 	private JPanel createPanel(Color c) {
+		
+		//Create a new JPanel
 		JPanel jp = new JPanel();
+		
+		//Set the background of the JPanel as per the argument accepted
 		jp.setBackground(c);
+		
+		//Return the JPanel
 		return jp;
 	}
 	
 
 	
 	private JButton createButton(String str) {
+		
+		//Create a new JButton
 		JButton jb = new JButton(str); 
+		
+		//Call ActionListener method when JButton clicked
 		jb.addActionListener((ActionListener) this);
+		
+		//Return JButton
 		return jb; 
 	}
 	
 	private JLabel createHeading(String str){
+		
+		//Create a new JLabel
 		JLabel jl = new JLabel(str); 
+		
+		//Change font of JLabel
 		jl.setFont(new Font("Courier New", Font.BOLD, 20));
+		
+		//Return JLabel
 		return jl;
 	}
 	
 	private JLabel createLabel(String str){
+		
+		//Create new JLabel with string accepted as argument
 		JLabel jl = new JLabel(str); 
+		
+		//Set the font of the JLabel
 		jl.setFont(new Font("Calibri", Font.PLAIN, 15));
+		
+		//Return the JLabel
 		return jl;
 	}
 
 	private JTextArea createInput(String str){
+		
+		//Create new JTextArea with the string accepted as argument
 		JTextArea jt = new JTextArea(str); 
+		
+		//Set the size of the columns
 		jt.setColumns(10);
+		
+		//Return text area
 		return jt;
 	}
 	
 	private void layoutButtonPanel() {
+		
+		//Create gridbaglayout to position elements
 		GridBagLayout layout = new GridBagLayout();
 	    pnlBtn.setLayout(layout);
 	    
 	    //add components to grid
 	    GridBagConstraints constraints = new GridBagConstraints(); 
 	    
-	    //Defaults
+	    //Place elements on the gridbaglayout
 	    constraints.fill = GridBagConstraints.NONE;
 	    constraints.anchor = GridBagConstraints.CENTER;
 	    constraints.weightx = 100;
@@ -243,7 +308,6 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    
 	    addToPanel(pnlBtn, btnRunSim,constraints,9,2,2,1); 
 	    addToPanel(pnlBtn, btnShowChart,constraints,9,3,2,1); 
-	    
 	}
 	
 	/**
@@ -258,7 +322,9 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
      * @param w the grid width
      * @param h the grid height
      */
-   private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
+   private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) { 
+	   
+	  //Set variables for positioning
       constraints.gridx = x;
       constraints.gridy = y;
       constraints.gridwidth = w;
@@ -272,6 +338,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	 */
 	@Override
 	public void run() {
+		//Make the GUI
 		createGUI(); 
 	}
 
@@ -280,12 +347,15 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	 */
 	
 	private void AddTextFromFile() {
+		
+		//get the log file using the getter and assign it to the string variablw
 		String fileName = getTextFile();
-		//List<String> list = new ArrayList<>();
-	   // textArea = createCenterTextArea();
 	  
+		//Get the fileName
 	    try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))){
 		String line;
+		
+		//For each line in the log file append it to the text area and create a new line
 		while ((line = br.readLine()) != null) {
 			textArea.append(line + "\n");
 		}
@@ -293,7 +363,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//textArea.setText(list.toString());
+
 	}
 	
 	public void actionPerformed(ActionEvent e) {
