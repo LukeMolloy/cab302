@@ -30,6 +30,96 @@ public class FirstTests {
 		Bill.cancelSeat(16);
 	}
 	
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfPassnegerIsInQueue() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 12);
+		Bill.queuePassenger(13, 13);
+		Bill.cancelSeat(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfPassnegerIsRefused() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 12);
+		Bill.refusePassenger(12);
+		Bill.cancelSeat(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfPassnegerIsFlown() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 12);
+		Bill.flyPassenger(45);
+		Bill.cancelSeat(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfCancelationTimeisLessThen0() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 12);
+		Bill.cancelSeat(-1);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfCancelationTimeisGreaterThenDepartureTime() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 12);
+		Bill.cancelSeat(14);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkConfirmSeat_IfAlreadyConfirmed() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 14);
+		Bill.confirmSeat(15, 16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkConfirmSeat_IfRefused() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.refusePassenger(13);
+		Bill.confirmSeat(13, 14);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkConfirmSeat_IfFlown() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.flyPassenger(12);
+		Bill.confirmSeat(13, 14);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkConfirmSeat_IfConfirmationTimeisLessThen0() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(-1, 13);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkConfirmSeat_IfConfirmationTimeisGreaterThenDepartureTime() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(12, 11);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkFlyPassenger_IfPassnegerIsNew() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.flyPassenger(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkFlyPassenger_IfPassnegerIsQueued() throws PassengerException{
+		Passenger Bill = new First(12,12);
+ 		Bill.queuePassenger(12, 13);
+		Bill.flyPassenger(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkFlyPassenger_IfPassnegerIsRefused() throws PassengerException{
+		Passenger Bill = new First(12,12);
+ 		//Bill.refusePassenger(14);
+		Bill.flyPassenger(16);
+	}
 	/*@Test (expected=PassengerException.class)
 	public void checkIfBookingTimeIsLessThen0() throws PassengerException{
 		Passenger Bill = new First(-1,12);

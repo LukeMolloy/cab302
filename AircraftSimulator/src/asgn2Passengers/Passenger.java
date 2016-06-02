@@ -145,7 +145,7 @@ public abstract class Passenger {
 			throw new PassengerException("Cancellation time less than 0");
 		}
 		
-		if (departureTime < cancellationTime) {
+		if (this.departureTime < cancellationTime) {
 			throw new PassengerException("Departure time less than cancellation time");
 		}
 		
