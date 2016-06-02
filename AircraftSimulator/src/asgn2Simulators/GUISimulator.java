@@ -58,8 +58,8 @@ import asgn2Simulators.GUISimulator;
 @SuppressWarnings("serial")
 public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 700;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 500;
 	
 
 	private JPanel pnlOne;
