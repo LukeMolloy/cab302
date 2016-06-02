@@ -11,6 +11,7 @@ import java.awt.Label;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -80,6 +81,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private String textFile;
 	private JPanel pnlBtn;
 	
+	private JScrollPane scrollPane = new JScrollPane(textArea);
+	
 	/**
 	 * @param arg0
 	 * @throws HeadlessException
@@ -146,7 +149,10 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    
 	    layoutButtonPanel(); 
 	    pnlOne.setLayout(new BorderLayout());
-	    pnlOne.add(textArea, BorderLayout.CENTER);
+	    JScrollPane scrollPane = new JScrollPane(textArea);
+	    pnlOne.add(scrollPane, BorderLayout.CENTER);
+	   // setPreferredSize(new Dimension(500, 500));
+	   // Font font = new Font("Arial")
 	    this.getContentPane().add(pnlOne,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlTwo,BorderLayout.NORTH);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
@@ -155,14 +161,13 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    
 	    repaint(); 
 	    this.setVisible(true);
-	    textArea.setText("HELLO");
 	}
 	
 	private JTextArea createCenterTextArea() {
 		JTextArea ta = new JTextArea();
 		ta.setEditable(false);
 		ta.setLineWrap(true);
-		ta.setFont(new Font("Arial", Font.BOLD,24));
+		ta.setFont(new Font("Arial", Font.PLAIN,12));
 		ta.setBorder(BorderFactory.createEtchedBorder());
 		return ta;
 
@@ -277,13 +282,14 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private void AddTextFromFile() {
 		String fileName = getTextFile();
 		List<String> list = new ArrayList<>();
-	    textArea = createCenterTextArea();
-	    
+	   // textArea = createCenterTextArea();
 	  
-	    //try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))){
-		try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-			stream.forEach(System.out :: println);
-	    		//list = br.lines().collect(Collectors.toList());
+	    try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))){
+		String line;
+		while ((line = br.readLine()) != null) {
+			textArea.append(line + "\n");
+		}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -330,6 +336,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		
 		
 		try {
+			
 			Simulator s = createSimulatorUsingArgsGUI(args);
 			Log l = new Log();
 			String logFile = l.getTextFile();
