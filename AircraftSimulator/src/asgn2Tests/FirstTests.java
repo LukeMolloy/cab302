@@ -144,6 +144,66 @@ public class FirstTests {
 		Bill.queuePassenger(13, 14);
 		Bill.queuePassenger(13, 14);
 	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfConfirmed() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 14);
+		Bill.queuePassenger(15, 16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfRefused() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.refusePassenger(12);
+		Bill.queuePassenger(15, 16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfFlown() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.flyPassenger(13);
+		Bill.queuePassenger(15, 16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfQueueTimeIsLEssThen0() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.queuePassenger(-1, 12);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfDepartureTimeIsLessThenQueueTime() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.queuePassenger(10, 8);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkRefusePassenger_IfConfirmed() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 13);
+		Bill.refusePassenger(14);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkRefusePassenger_IfRefused() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.refusePassenger(14);
+		Bill.refusePassenger(15);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkRefusePassenger_IfFlown() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.flyPassenger(14);
+		Bill.refusePassenger(15);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkRefusePasseneger_IfRefusalTimeIsLEssThen0() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.refusePassenger(-1);
+	}
 	/*@Test (expected=PassengerException.class)
 	public void checkIfBookingTimeIsLessThen0() throws PassengerException{
 		Passenger Bill = new First(-1,12);
