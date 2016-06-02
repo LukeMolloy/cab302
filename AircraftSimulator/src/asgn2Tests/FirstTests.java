@@ -12,18 +12,29 @@ import asgn2Passengers.First;
 import asgn2Passengers.Passenger;
 import asgn2Passengers.PassengerException;
 
-public class PassengerTests {
+public class FirstTests {
 
-	@Test
-	public final void testPassengerIntInt() {
-		fail("Not yet implemented"); // TODO
+	@Test (expected=PassengerException.class)
+	public void checkIfDepartureTimeIsLessThen0() throws PassengerException{
+		Passenger Bill = new First(12,-1);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkIfBookingTimeIsLessThen0() throws PassengerException{
+		Passenger Bill = new First(-1,12);
 	}
 
-	@Test
-	public final void testPassenger() {
-		fail("Not yet implemented"); // TODO
+	@Test (expected=PassengerException.class)
+	public void checkCancelSeat_IfPassnegerIsNew() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.cancelSeat(16);
 	}
-
+	
+	/*@Test (expected=PassengerException.class)
+	public void checkIfBookingTimeIsLessThen0() throws PassengerException{
+		Passenger Bill = new First(-1,12);
+	}*/
+	
 	@Test
 	public final void testCancelSeat() throws PassengerException {
 		Passenger Bill = new First(12, 12);
@@ -62,7 +73,6 @@ public class PassengerTests {
 		Bill.flyPassenger(12);
 		assertEquals(Bill.isFlown(), true);
 	}
-
 	@Test
 	public final void testIsNew() throws PassengerException {
 		Passenger Bill = new First(12, 12);
@@ -83,10 +93,6 @@ public class PassengerTests {
 		assertEquals(Bill.isRefused(), true);
 	}
 
-	@Test
-	public final void testNoSeatsMsg() {
-		fail("Not yet implemented"); // TODO
-	}
 
 	@Test
 	public final void testQueuePassenger() throws PassengerException {
@@ -125,5 +131,5 @@ public class PassengerTests {
 		
 		
 	}
-
 }
+
