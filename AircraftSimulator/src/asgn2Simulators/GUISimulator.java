@@ -143,7 +143,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    
 	    btnRunSim = createButton("Run Simulation");
 	    btnShowChart = createButton("Show Charts");
-	    btnShowLogs = createButton("Show Logs");
+	    btnRunSim.setEnabled(true);
+		btnShowChart.setEnabled(false);
 
 	    textArea = createCenterTextArea();
 	    
@@ -242,7 +243,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    
 	    addToPanel(pnlBtn, btnRunSim,constraints,9,2,2,1); 
 	    addToPanel(pnlBtn, btnShowChart,constraints,9,3,2,1); 
-	    addToPanel(pnlBtn, btnShowLogs,constraints,9,4,2,1); 
+	    
 	}
 	
 	/**
@@ -301,8 +302,16 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		
 		if (src== btnRunSim) {
 			try {
-				RunGUI();
-				AddTextFromFile();
+				if(!checkIfNotNumbers()){
+				}else if(!checkIfNotNegative()){
+				}else if((Double.parseDouble(firstInput.getText()) + Double.parseDouble(businessInput.getText()) + Double.parseDouble(premiumInput.getText()) + Double.parseDouble(economyInput.getText())) > 1){
+					JOptionPane.showMessageDialog(this,"Please Make Sure that the total of all fare classes doesn't exceed 1");
+				}else{
+					RunGUI();
+					AddTextFromFile();
+					btnRunSim.setEnabled(false);
+					btnShowChart.setEnabled(true);
+				}
 			} catch (IOException | SimulationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -310,28 +319,105 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		} else if (src==btnShowChart) {
 			try {
 				RunCharts();
+				btnRunSim.setEnabled(true);
+				btnShowChart.setEnabled(false);
 			} catch (IOException | SimulationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			  
-		} else if (src==btnShowLogs) {
-			JOptionPane.showMessageDialog(this,"A Warning Message");
 		}	
 	}
 	
-	//public void stringPrinter (String str) {
-		//textArea.append(str);
-		
-		
-		//System.out.println(str);
-		
-	//}
+	private boolean checkIfNotNumbers(){
+		if (!tryParse(firstInput.getText())){
+			JOptionPane.showMessageDialog(this,"'First' is not a number");
+			return false;
+		}
+		if (!tryParse(businessInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Business' is not a number");
+			return false;
+		}
+		if (!tryParse(premiumInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Premium' is not a number");
+			return false;
+		}
+		if (!tryParse(economyInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Economy' is not a number");
+			return false;
+		}
+		if (!tryParse(rngInput.getText())){
+			JOptionPane.showMessageDialog(this,"'RNG seed' is not a number");
+			return false;
+		}
+		if (!tryParse(dailyInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Daily Mean' is not a number");
+			return false;
+		}
+		if (!tryParse(queueInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Queue Size' is not a number");
+			return false;
+		}
+		if (!tryParse(cancelInput.getText())){
+			JOptionPane.showMessageDialog(this,"'Calcellation' is not a number");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean checkIfNotNegative(){
+		if (Double.parseDouble(firstInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'First' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(businessInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Business' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(premiumInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Premium' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(economyInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Economy' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(rngInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'RNG seed' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(dailyInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Daily Mean' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(queueInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Queue Size' is a negative number");
+			return false;
+		}
+		if (Double.parseDouble(cancelInput.getText()) < 0){
+			JOptionPane.showMessageDialog(this,"'Calcellation' is a negative number");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean tryParse(String value) {  
+	     try {  
+	         Double.parseDouble(value);  
+	         return true;  
+	      } catch (NumberFormatException e) {  
+	         return false;  
+	      }  
+	}
+	
+	
 	
 	public void RunGUI() throws IOException, SimulationException {
 		double mean = 0.33*parseInt(dailyInput.getText());
 		String meanSD = Double.toString(mean);
 		String [] args = {rngInput.getText(),queueInput.getText(),dailyInput.getText(),meanSD,firstInput.getText(),businessInput.getText(),premiumInput.getText(),economyInput.getText(),cancelInput.getText()};
+		
 		
 		
 		try {
