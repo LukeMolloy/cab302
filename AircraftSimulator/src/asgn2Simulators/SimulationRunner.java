@@ -51,7 +51,7 @@ public class SimulationRunner {
 		try {
 			switch (args.length) {
 				case NUM_ARGS: {
-					if(args[9].equals("runGUI")){
+					if(args[9].equals("GUI")){
 						GUISimulator.main(args);
 					}else{
 						s = createSimulatorUsingArgs(args);
@@ -60,7 +60,7 @@ public class SimulationRunner {
 					}
 				}
 				case 1: {
-					if(args[0].equals("runGUI")){
+					if(args[0].equals("GUI")){
 						GUISimulator.main(args);
 					}else{
 						

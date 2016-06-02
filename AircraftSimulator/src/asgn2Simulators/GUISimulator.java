@@ -150,9 +150,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    layoutButtonPanel(); 
 	    pnlOne.setLayout(new BorderLayout());
 	    JScrollPane scrollPane = new JScrollPane(textArea);
+	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    pnlOne.add(scrollPane, BorderLayout.CENTER);
-	   // setPreferredSize(new Dimension(500, 500));
-	   // Font font = new Font("Arial")
 	    this.getContentPane().add(pnlOne,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlTwo,BorderLayout.NORTH);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
@@ -281,7 +280,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	
 	private void AddTextFromFile() {
 		String fileName = getTextFile();
-		List<String> list = new ArrayList<>();
+		//List<String> list = new ArrayList<>();
 	   // textArea = createCenterTextArea();
 	  
 	    try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))){
@@ -346,7 +345,6 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		    
 		    revalidate();
 		    repaint();
-
 			
 
 		} catch (SimulationException | IOException | AircraftException | PassengerException e1) {
