@@ -1,0 +1,145 @@
+/**
+ * 
+ * This file is part of the AircraftSimulator Project, written as 
+ * part of the assessment for CAB302, semester 1, 2016. 
+ * 
+ */
+package asgn2Simulators;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.JPanel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+
+/** 
+ * Example code based on the Stack Overflow example and the 
+ * standard JFreeChart demos showing the construction of a time series 
+ * data set. Some of the data creation code is clearly a quick hack
+ * and should not be taken as indicative of the required coding style. 
+ * @see http://stackoverflow.com/questions/5048852
+ * 
+ *  */
+@SuppressWarnings("serial")
+public class Chart2 extends ApplicationFrame {
+
+    private static final String TITLE = "Simulation 2";
+    
+    /**
+     * Constructor shares the work with the run method. 
+     * @param title Frame display title
+     */
+    public Chart2(final String title, List<Integer> arrayQueue, List<Integer> arrayRefuse) {
+        super(title);
+        final TimeSeriesCollection dataset = createTimeSeriesData(arrayQueue, arrayRefuse); 
+        JFreeChart chart = createChart(dataset);
+        this.add(new ChartPanel(chart), BorderLayout.CENTER);
+        JPanel btnPanel = new JPanel(new FlowLayout());
+        this.add(btnPanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * Private method creates the dataset. Lots of hack code in the 
+     * middle, but you should use the labelled code below  
+     * @param arrayTotal 
+     * @param arrayEmpty 
+     * @param arrayEconomy 
+     * @param arrayPremium 
+     * @param arrayBusiness 
+     * @param arrayFirst 
+	 * @return collection of time series for the plot 
+	 */
+	public static TimeSeriesCollection createTimeSeriesData(List<Integer> arrayQueue, List<Integer> arrayRefuse) {
+		TimeSeriesCollection tsc = new TimeSeriesCollection(); 
+		TimeSeries queuedTotal = new TimeSeries("Queued");
+		TimeSeries refusedTotal = new TimeSeries("Refused"); 
+		
+		//Base time, data set up - the calendar is needed for the time points
+		Calendar cal = GregorianCalendar.getInstance();
+		
+		int queued = 0;
+		int refused = 0; 
+		int numDays = 126;
+		
+		//Hack loop to make it interesting. Grows for half of it, then declines
+		for (int i=0; i<numDays; i++) {
+			//These lines are important 
+			cal.set(2016,0,i,6,0);
+	        Date timePoint = cal.getTime();
+	        	
+	        	
+	        	queued = arrayQueue.get(i);
+	        	refused = arrayRefuse.get(i);
+	       
+	        	
+	        if (queued != 0 && refused != 0) {
+		        queuedTotal.add(new Day(timePoint),queued);
+				refusedTotal.add(new Day(timePoint),refused);
+	        }
+	        	
+
+			
+			//bookTotal.add(new Day(timePoint), economy+business+premium+first);
+		}
+		
+		//Collection
+		tsc.addSeries(queuedTotal);
+		tsc.addSeries(refusedTotal);
+		return tsc; 
+	}
+	
+
+    /**
+     * Helper method to deliver the Chart - currently uses default colours and auto range 
+     * @param dataset TimeSeriesCollection for plotting 
+     * @returns chart to be added to panel 
+     */
+    private JFreeChart createChart(final XYDataset dataset) {
+        final JFreeChart result = ChartFactory.createTimeSeriesChart(
+            TITLE, "Days", "Passengers", dataset, true, true, false);
+        final XYPlot plot = result.getXYPlot();
+        plot.getRenderer().setSeriesPaint(0, Color.BLUE);
+        plot.getRenderer().setSeriesPaint(1, Color.GREEN);
+        ValueAxis domain = plot.getDomainAxis();
+        domain.setAutoRange(true);
+        ValueAxis range = plot.getRangeAxis();
+        range.setAutoRange(true);
+        return result;
+    }
+
+    /**
+     * Simple main GUI runner 
+     * @param args ignored 
+     */
+    public static void main(final String[] args,final List<Integer> arrayQueue,final List<Integer> arrayRefuse) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Chart2 demo = new Chart2(TITLE, arrayQueue, arrayRefuse);
+                demo.setLocation(800, 462);
+                demo.pack();
+                //RefineryUtilities.centerFrameOnScreen(demo);
+                demo.setVisible(true);
+            }
+        });
+    }
+}

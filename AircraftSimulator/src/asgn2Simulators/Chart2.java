@@ -7,6 +7,7 @@
 package asgn2Simulators;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.util.Calendar;
@@ -116,6 +117,8 @@ public class Chart2 extends ApplicationFrame {
         final JFreeChart result = ChartFactory.createTimeSeriesChart(
             TITLE, "Days", "Passengers", dataset, true, true, false);
         final XYPlot plot = result.getXYPlot();
+        plot.getRenderer().setSeriesPaint(0, Color.BLUE);
+        plot.getRenderer().setSeriesPaint(1, Color.RED);
         ValueAxis domain = plot.getDomainAxis();
         domain.setAutoRange(true);
         ValueAxis range = plot.getRangeAxis();

@@ -8,6 +8,7 @@ package asgn2Simulators;
 
 import java.awt.BorderLayout;
 import java.awt.Label;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -16,16 +17,22 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
 import org.jfree.ui.RefineryUtilities;
@@ -59,7 +66,8 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private JPanel pnlFour;
 	private JPanel pnlFive;
 	
-	private JTextArea ta = new JTextArea("");
+	private JTextArea textArea;
+	
 	private JTextArea rngInput = new JTextArea("100");
 	private JTextArea dailyInput = new JTextArea("500");
 	private JTextArea queueInput, cancelInput, firstInput, businessInput, premiumInput, economyInput;
@@ -69,7 +77,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	private JButton btnRunSim;
 	private JButton btnShowChart;
 	private JButton btnShowLogs;
-
+	private String textFile;
 	private JPanel pnlBtn;
 	
 	/**
@@ -79,6 +87,16 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	public GUISimulator(String arg0) throws HeadlessException {
 		super(arg0);
 	}
+	
+	
+	private void setTextFile(String value) {
+		textFile = value;
+	}
+	
+	private String getTextFile() {
+		return textFile;
+	}
+	
 	
 	private double parseInt(String str){
 		double x = Double.parseDouble(str);
@@ -124,17 +142,32 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	    btnShowChart = createButton("Show Charts");
 	    btnShowLogs = createButton("Show Logs");
 
+	    textArea = createCenterTextArea();
 	    
 	    layoutButtonPanel(); 
-	    
+	    pnlOne.setLayout(new BorderLayout());
+	    pnlOne.add(textArea, BorderLayout.CENTER);
 	    this.getContentPane().add(pnlOne,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlTwo,BorderLayout.NORTH);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
 	    this.getContentPane().add(pnlFour,BorderLayout.EAST);
 	    this.getContentPane().add(pnlFive,BorderLayout.WEST);
+	    
 	    repaint(); 
 	    this.setVisible(true);
+	    textArea.setText("HELLO");
 	}
+	
+	private JTextArea createCenterTextArea() {
+		JTextArea ta = new JTextArea();
+		ta.setEditable(false);
+		ta.setLineWrap(true);
+		ta.setFont(new Font("Arial", Font.BOLD,24));
+		ta.setBorder(BorderFactory.createEtchedBorder());
+		return ta;
+
+	}
+	
 	
 	
 	private JPanel createPanel(Color c) {
@@ -240,7 +273,22 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
-
+	
+	private void AddTextFromFile() {
+		String fileName = getTextFile();
+		List<String> list = new ArrayList<>();
+	    textArea = createCenterTextArea();
+	    
+	  
+	    //try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))){
+		try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+			stream.forEach(System.out :: println);
+	    		//list = br.lines().collect(Collectors.toList());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//textArea.setText(list.toString());
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		//Get event source 
@@ -249,6 +297,7 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		if (src== btnRunSim) {
 			try {
 				RunGUI();
+				AddTextFromFile();
 			} catch (IOException | SimulationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -266,10 +315,13 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		}	
 	}
 	
-	public void stringPrinter (String str) {
-		ta.append(str);
+	//public void stringPrinter (String str) {
+		//textArea.append(str);
 		
-	}
+		
+		//System.out.println(str);
+		
+	//}
 	
 	public void RunGUI() throws IOException, SimulationException {
 		double mean = 0.33*parseInt(dailyInput.getText());
@@ -280,9 +332,11 @@ public class GUISimulator extends JFrame implements ActionListener, Runnable {
 		try {
 			Simulator s = createSimulatorUsingArgsGUI(args);
 			Log l = new Log();
+			String logFile = l.getTextFile();
+			setTextFile(logFile);
 			SimulationRunner sr = new SimulationRunner(s,l);
 			sr.runSimulation();
-		    pnlOne.add(ta);
+		    
 		    revalidate();
 		    repaint();
 

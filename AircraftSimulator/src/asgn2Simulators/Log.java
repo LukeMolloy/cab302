@@ -29,6 +29,15 @@ public class Log {
 	//Controls logging of detailed status information 
 	public static final boolean SAVE_STATUS = false; 
 	
+	private String textFile="";
+	
+	public String getTextFile() {
+		return textFile;
+	}
+	
+	private void setTextFile(String value) {
+		textFile = value;
+	}
 	/**
 	 * Helper to set Passenger transition messages
 	 * 
@@ -83,6 +92,7 @@ public class Log {
 
         // This will output the full path where the file will be written to...
         System.out.println(logFile.getCanonicalPath());
+        setTextFile(logFile.getCanonicalPath());
         this.writer = new BufferedWriter(new FileWriter(logFile));
         
         if (Log.SAVE_STATUS) {

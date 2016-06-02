@@ -156,7 +156,7 @@ public class SimulationRunner {
 		this.sim.createSchedule();
 		this.log.initialEntry(this.sim);
 		//GUISimulator guiSim = null;
-		initialLogEntry(guiSim);
+		//initialLogEntry(guiSim);
 
 		
 		
@@ -185,6 +185,7 @@ public class SimulationRunner {
 		this.sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		this.log.logQREntries(Constants.DURATION, sim);
 		this.log.finalise(this.sim);
+		
 	}
 	
 	
@@ -245,12 +246,12 @@ public class SimulationRunner {
 		return arrayTotal;
 	}
 	
-	public void initialLogEntry(GUISimulator guiSim) throws IOException, SimulationException {
-		guiSim.stringPrinter(": Start of Simulation\n");
-		guiSim.stringPrinter(sim.toString() + "\n");
-		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
-		guiSim.stringPrinter(capacities);
-	}
+	//public void initialLogEntry(GUISimulator guiSim) throws IOException, SimulationException {
+		//guiSim.stringPrinter(": Start of Simulation\n");
+		//guiSim.stringPrinter(sim.toString() + "\n");
+		//String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
+		//guiSim.stringPrinter(capacities);
+//	}
 	
 	
 	/**private void displayEntry(time, GUISimulator gui, Simulator sim) {
