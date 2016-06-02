@@ -74,14 +74,14 @@ public abstract class Passenger {
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
 		
-		//Exceptions
+		//Deal with Exceptions:
 		if (bookingTime < 0) {
-			throw new PassengerException("Not applicable");
+			throw new PassengerException("Booking time less than 0");
 		}
 		
 		
 		if (departureTime <= 0) {
-			throw new PassengerException("Not applicable");
+			throw new PassengerException("Departure time less than or equal to 0");
 		}
 
 		
@@ -585,5 +585,4 @@ public abstract class Passenger {
 	}
 	
 	//Various private helper methods to check arguments and throw exceptions
-
 }

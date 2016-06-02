@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="A380Tests" project="AircraftSimulator" tests="31" started="31" failures="2" errors="1" ignored="0">
+  <testsuite name="asgn2Tests.A380Tests" time="0.004">
+    <testcase name="testBookingsEmptiesBusiness" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testSeatsAvailableBusiness" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testGetPassengersWhen1" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBookingsEmptiesPremium" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testA380" classname="asgn2Tests.A380Tests" time="0.0">
+      <failure>java.lang.AssertionError: Expected exception: asgn2Aircraft.AircraftException&#13;
+	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)&#13;
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)&#13;
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testFlyPassengers" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsNotAvailablePremium" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testCancelBooking" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testHasPassenger" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testGetPassengersWhenMultiple" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testGetBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testEconomyUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testPremiumUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBusinessUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testConfirmBooking" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailableFirst" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testAircraft" classname="asgn2Tests.A380Tests" time="0.001">
+      <error>java.lang.Error: Unresolved compilation problem: 
+	Cannot instantiate the type Aircraft
+&#13;
+	at asgn2Tests.A380Tests.testAircraft(A380Tests.java:57)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:498)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)&#13;
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)&#13;
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)&#13;
+&#13;
+</error>
+    </testcase>
+    <testcase name="testSeatsNotAvailableFirst" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailableEconomy" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testFlightEmpty" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsNotAvailableBusiness" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testFirstUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testInitialState" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testA380StringIntIntIntIntInt" classname="asgn2Tests.A380Tests" time="0.001">
+      <failure>java.lang.AssertionError: Expected exception: asgn2Aircraft.AircraftException&#13;
+	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)&#13;
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)&#13;
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testBookingsEmptiesEconomy" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testFlightFull" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsNotAvailableEconomy" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testHasPassengerWhenMultiplePassengers" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testFinalState" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailablePremium" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="test2ConfirmBookingS" classname="asgn2Tests.A380Tests" time="0.0"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="A380Tests" project="AircraftSimulator" tests="44" started="44" failures="1" errors="0" ignored="0">
+  <testsuite name="asgn2Tests.A380Tests" time="0.063">
+    <testcase name="testCancelBooking_PASSENGER_NOT_CONFIRMED" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testCancelBooking_CANCELLATION_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testA380DepartureTimeLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBookingsEmptiesBusiness" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailableBusiness" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testGetPassengersWhen1" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testAircraftDepartureLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBookingsEmptiesPremium" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testCancelBooking_PASSENGER_NOT_ON_PLANE" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testFlyPassengers" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testSeatsNotAvailablePremium" classname="asgn2Tests.A380Tests" time="0.002"/>
+    <testcase name="testCancelBooking" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testHasPassenger" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testGetPassengersWhenMultiple" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testGetBookings" classname="asgn2Tests.A380Tests" time="0.002"/>
+    <testcase name="testEconomyUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testPremiumUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testA380DepartureLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBusinessUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testConfirmBooking_PASS_ISREFUSED" classname="asgn2Tests.A380Tests" time="0.021">
+      <failure>java.lang.AssertionError: Expected exception: asgn2Passengers.PassengerException&#13;
+	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)&#13;
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)&#13;
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testConfirmBooking" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailableFirst" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testConfirmBooking_PASS_ISCONFIRMED" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testA380FlightCodeNull" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testSeatsNotAvailableFirst" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailableEconomy" classname="asgn2Tests.A380Tests" time="0.007"/>
+    <testcase name="testConfirmBooking_CONF_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testFlightEmpty" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testSeatsNotAvailableBusiness" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testFirstUpgradeBookings" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testInitialState" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testAircraftFlightCodeNull" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testA380EconomyLessThan0" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testConfirmBooking_DEP_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBookingsEmptiesEconomy" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testFlightFull" classname="asgn2Tests.A380Tests" time="0.008"/>
+    <testcase name="testSeatsNotAvailableEconomy" classname="asgn2Tests.A380Tests" time="0.005"/>
+    <testcase name="testA380BusinessLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testHasPassengerWhenMultiplePassengers" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testFinalState" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testSeatsAvailablePremium" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testA380PremiumLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="test2ConfirmBookingS" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testA380FirstLessThan0" classname="asgn2Tests.A380Tests" time="0.001"/>
+  </testsuite>
+</testrun>

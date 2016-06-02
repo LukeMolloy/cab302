@@ -392,11 +392,14 @@ public abstract class Aircraft {
 		int seatsAvailable = 0;
 		if(isEconomy(p)){
 			seatsAvailable = this.economyCapacity - this.numEconomy;
-		}else if(isPremium(p)){
+		}
+		if(isPremium(p)){
 			seatsAvailable = this.premiumCapacity - this.numPremium;
-		}else if(isBusiness(p)){
+		}
+		if(isBusiness(p)){
 			seatsAvailable = this.businessCapacity - this.numBusiness;
-		}else if(isFirst(p)){
+		}
+		if(isFirst(p)){
 			seatsAvailable = this.firstCapacity - this.numFirst;
 		}
 		

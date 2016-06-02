@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="A380Tests" project="AircraftSimulator" tests="45" started="6" failures="0" errors="0" ignored="0">
+  <testsuite name="asgn2Tests.A380Tests" incomplete="true">
+    <testcase name="testCancelBooking_PASSENGER_NOT_CONFIRMED" classname="asgn2Tests.A380Tests" time="0.005"/>
+    <testcase name="testCancelBooking_CANCELLATION_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" time="0.001"/>
+    <testcase name="testA380DepartureTimeLessThan0" classname="asgn2Tests.A380Tests" time="0.0"/>
+    <testcase name="testBookingsEmptiesBusiness" classname="asgn2Tests.A380Tests" time="0.009"/>
+    <testcase name="testSeatsAvailableBusiness" classname="asgn2Tests.A380Tests" time="0.003"/>
+    <testcase name="testConfirmBooking_NO_SEATS_AVAILABLE" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testGetPassengersWhen1" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testAircraftDepartureLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testBookingsEmptiesPremium" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testCancelBooking_PASSENGER_NOT_ON_PLANE" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testFlyPassengers" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsNotAvailablePremium" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testCancelBooking" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testHasPassenger" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testGetPassengersWhenMultiple" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testGetBookings" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testEconomyUpgradeBookings" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testPremiumUpgradeBookings" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380DepartureLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testBusinessUpgradeBookings" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testConfirmBooking_PASS_ISREFUSED" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testConfirmBooking" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsAvailableFirst" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testConfirmBooking_PASS_ISCONFIRMED" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380FlightCodeNull" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsNotAvailableFirst" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsAvailableEconomy" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testConfirmBooking_CONF_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testFlightEmpty" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsNotAvailableBusiness" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testFirstUpgradeBookings" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testInitialState" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testAircraftFlightCodeNull" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380EconomyLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testConfirmBooking_DEP_TIME_LESS_THAN_0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testBookingsEmptiesEconomy" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testFlightFull" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsNotAvailableEconomy" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380BusinessLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testHasPassengerWhenMultiplePassengers" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testFinalState" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testSeatsAvailablePremium" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380PremiumLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="test2ConfirmBookingS" classname="asgn2Tests.A380Tests" incomplete="true"/>
+    <testcase name="testA380FirstLessThan0" classname="asgn2Tests.A380Tests" incomplete="true"/>
+  </testsuite>
+</testrun>
