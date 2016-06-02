@@ -110,6 +110,7 @@ public class FirstTests {
 	@Test (expected=PassengerException.class)
 	public void checkFlyPassenger_IfPassnegerIsQueued() throws PassengerException{
 		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 13);
  		Bill.queuePassenger(12, 13);
 		Bill.flyPassenger(16);
 	}
@@ -117,8 +118,31 @@ public class FirstTests {
 	@Test (expected=PassengerException.class)
 	public void checkFlyPassenger_IfPassnegerIsRefused() throws PassengerException{
 		Passenger Bill = new First(12,12);
- 		//Bill.refusePassenger(14);
+		Bill.confirmSeat(13, 13);
+ 		Bill.refusePassenger(14);
 		Bill.flyPassenger(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkFlyPassenger_IfPassnegerIsFlown() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 13);
+ 		Bill.flyPassenger(14);
+		Bill.flyPassenger(16);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkFlyPassenger_IfConfirmationTimeisLessThen0() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.confirmSeat(13, 13);
+		Bill.flyPassenger(-1);
+	}
+	
+	@Test (expected=PassengerException.class)
+	public void checkQueuePasseneger_IfQueued() throws PassengerException{
+		Passenger Bill = new First(12,12);
+		Bill.queuePassenger(13, 14);
+		Bill.queuePassenger(13, 14);
 	}
 	/*@Test (expected=PassengerException.class)
 	public void checkIfBookingTimeIsLessThen0() throws PassengerException{
